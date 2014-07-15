@@ -4,6 +4,7 @@ use strict;
 use DBI;
 use Getopt::Long;
 use List::MoreUtils qw/ uniq /;
+use File::Slurp;
 
 my $dbhost="127.0.0.1";
 my $database="mythconverg";
@@ -11,7 +12,7 @@ my $user="mythtv";
 my $pass="mythtv";
 my $sourceid = 1;
 my $hidden = 0;
-my $conf="channels.conf";
+my $scan="channels.conf";
 
 GetOptions('dbhost=s'=>\$dbhost,
            'database=s'=>\$database,
@@ -19,15 +20,15 @@ GetOptions('dbhost=s'=>\$dbhost,
            'pass=s'=>\$pass,
            'sourceid=i'=>\$sourceid,
            'hidden!'=>\$hidden,
-	   'conf=s'=>\$conf
+	   'scan=s'=>\$scan
            ) || die "Usage:";
 
 
 my %channels;
 
 # parse provided config fix
-print "Parsing channels file: $conf\n\n";
-open CONFIG, "<$conf" or die "Failed to open channels.conf file $conf";
+print "Parsing channels file: $scan\n\n";
+open CONFIG, "<$scan" or die "Failed to open channels.conf file $scan";
 my $line;
 
 while (defined($line = <CONFIG>))
