@@ -13,6 +13,7 @@ my $pass="mythtv";
 my $sourceid = 1;
 my $hidden = 0;
 my $scan="channels.conf";
+my $conf="contrib/freesat.csv";
 
 GetOptions('dbhost=s'=>\$dbhost,
            'database=s'=>\$database,
@@ -20,9 +21,13 @@ GetOptions('dbhost=s'=>\$dbhost,
            'pass=s'=>\$pass,
            'sourceid=i'=>\$sourceid,
            'hidden!'=>\$hidden,
-	   'scan=s'=>\$scan
+	   'scan=s'=>\$scan,
+	   'conf=s'=>\$conf
            ) || die "Usage:";
 
+my @conf_chans = read_file $conf;
+die "Config file '$conf' is empty!\n"
+    if 0 == scalar @conf_chans;
 
 my %channels;
 
