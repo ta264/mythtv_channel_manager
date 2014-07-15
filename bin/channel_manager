@@ -29,7 +29,7 @@ my @conf_chans = read_file $conf;
 die "Config file '$conf' is empty!\n"
     if 0 == scalar @conf_chans;
 
-my %channels;
+my %scanned_chans;
 
 # parse provided config fix
 print "Parsing channels file: $scan\n\n";
@@ -54,7 +54,7 @@ while (defined($line = <CONFIG>))
     my $info2 = join "", $polarity, "C", $fec, "M", $modulation, "O", $rolloff;
 
     # put into hashref
-    $channels{$serviceid} = {
+    $scanned_chans{$serviceid} = {
 	name => $name,
 	frequency => $freq,
 	info => $info2,
@@ -98,7 +98,7 @@ while (my @row=$sth->fetchrow_array) {
 
     my $info = join "", $polarity, "C", $fec, "M", $modulation, "O", $rolloff, $type;
 
-    my $match = $channels{$serviceid};
+    my $match = $scanned_chans{$serviceid};
     if (defined($match) && ($match->{'name'} eq ($callsign . ";BSkyB")))
     {
 	# check if frequency and info the same
@@ -120,7 +120,7 @@ while (my @row=$sth->fetchrow_array) {
 	push @missing_channels, $serviceid;
 
 	# look for name matches
-	my @name_matches = grep { $channels{$_}->{'name'} eq ($callsign . ";BSkyB") } keys %channels;
+	my @name_matches = grep { $scanned_chans{$_}->{'name'} eq ($callsign . ";BSkyB") } keys %scanned_chans;
 
 	if (scalar @name_matches < 1) {
 	    print "$callsign ($serviceid): no match on ServiceID or name\n";
@@ -128,7 +128,7 @@ while (my @row=$sth->fetchrow_array) {
 	    print "$callsign ($serviceid): ServiceID changed to @name_matches\n";
 	    push @changed_sid, $serviceid;
 	    
-	    my $name_match = $channels{$name_matches[0]};
+	    my $name_match = $scanned_chans{$name_matches[0]};
 	    push @tune_needed, $name_match->{'frequency'} . ":" . $name_match->{'info'};
 	} else {
 	    print "$callsign ($serviceid): ServiceID changed.  Multiple name matches: " . join(',', @name_matches) . "\n";
