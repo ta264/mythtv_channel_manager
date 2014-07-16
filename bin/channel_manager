@@ -123,8 +123,12 @@ foreach my $sid (keys %config_chans) {
 	    ($db_mplex->polarity eq $params->{polarity}) &&
 	    ($db_mplex->modulation eq $params->{modulation}) &&
 	    ($db_mplex->fec eq $params->{fec})) {
+
 	    # Everything OK.  Set channel visible.
+	    $db_chan->update({visible => 1});
+
 	} else {
+
 	    # Serviceid/callsign match but tuning data are different.  Update/create multiplex and change mplexid in channel table and set visible
 	    print "Tuning details differ for $config_chan->{callsign} (SID: $config_chan->{sid}).  Updating multiplex.\n";
 
