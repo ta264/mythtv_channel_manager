@@ -136,13 +136,19 @@ foreach my $sid (keys %config_chans) {
 
 	# If we have only one match, try to fix it up.  Otherwise die.
 	die "Found too many matches on callsign to continue.\n"
-	    if scalar @db_chans > 1;
+	    if scalar @db_chans ne 1;
 
 	# Find correct multiplex using scan data.  Update serviceid and mplexid and set visible.
+	my $use_freq = $scanned_chan->{freq} < 1_000_000 ? $scanned_chan->{freq} * 1_000 : $scanned_chan->{freq};
 	my $mplex = $multiplexes->find_or_create(
 	    {
 		sourceid => $sourceid,
-		frequency => ($scanned_chan->{freq} < 1_000_000 ? $scanned_chan->{freq} * 1_000 : $scanned_chan->{freq} ),
+		frequency => {
+		    -between => [
+			 $use_freq - 2500,
+			 $use_freq + 2500,
+			],
+		},
 		symbolrate => ($scanned_chan->{sr} < 1_000_000 ? $scanned_chan->{sr} * 1_000 : $scanned_chan->{sr}),
 		transportid => $scanned_chan->{tid},
 		networkid => $scanned_chan->{nid},
