@@ -148,17 +148,21 @@ foreach my $sid (keys %config_chans) {
 
 	# If we have only one match, try to fix it up.  Otherwise die.
 	die "Found too many matches on callsign to continue.\n"
-	    if scalar @db_chans ne 1;
+	    if scalar @db_chans > 1;
 
-	# Find correct multiplex using scan data.  Update serviceid and mplexid and set visible.
-	my $mplex = find_multiplex($multiplexes, $scanned_chan);
+	if (scalar @db_chans eq 1) {
+	    # Find correct multiplex using scan data.  Update serviceid and mplexid and set visible.
+	    my $mplex = find_multiplex($multiplexes, $scanned_chan);
 
-	my $db_chan = $db_chans[0];
-	$db_chan->update({
-	    serviceid => $sid,
-	    mplexid => $mplex->mplexid,
-	    visible => 1
-			 });
+	    my $db_chan = $db_chans[0];
+	    $db_chan->update({
+		serviceid => $sid,
+		mplexid => $mplex->mplexid,
+		visible => 1
+			     });
+	} else {
+	    # Add a new channel entry
+	}
 
     }
 }
