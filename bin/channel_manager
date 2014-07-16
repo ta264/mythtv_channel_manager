@@ -63,7 +63,7 @@ foreach my $line (@scanned_chans_file)
 # connect to db
 my $s = MythConverg::Schema->connect(
     'dbi:mysql:database=mythconverg',
-    'mythtv', $pass,
+    $user, $pass,
     { mysql_enable_utf8 => 1, quote_char => q{`}, name_sep => q{.} },  
 );
 
