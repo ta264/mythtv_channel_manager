@@ -13,19 +13,19 @@ my $dbhost="127.0.0.1";
 my $database="mythconverg";
 my $user="mythtv";
 my $pass="mythtv";
-my $sourceid = 1;
 my $hidden = 0;
 my $scan="channels.conf";
 my $conf="contrib/freesat.csv";
+my $videosource = "xmltv";
 
 GetOptions('dbhost=s'=>\$dbhost,
            'database=s'=>\$database,
            'user=s'=>\$user,
            'pass=s'=>\$pass,
-           'sourceid=i'=>\$sourceid,
            'hidden!'=>\$hidden,
 	   'scan=s'=>\$scan,
-	   'conf=s'=>\$conf
+	   'conf=s'=>\$conf,
+	   'videosource=s'=>\$videosource
            ) || die "Usage:";
 
 # read config file
@@ -73,6 +73,12 @@ my $s = MythConverg::Schema->connect(
 my $sources = $s->resultset('Videosource');
 my $channels = $s->resultset('Channel');
 my $multiplexes = $s->resultset('DtvMultiplex');
+
+# Check video source and get sourceid.
+my $source = $sources->find({name => $videosource})
+    or die "Unknown video source '$videosource' (use -s <sourcename>).\n";
+my $sourceid = $source->sourceid;
+
 
 # First we should set all channels to be not visible
 
