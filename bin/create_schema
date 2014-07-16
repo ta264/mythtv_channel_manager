@@ -1,0 +1,12 @@
+#!/usr/bin/perl -w
+
+use DBIx::Class::Schema::Loader qw/ make_schema_at /;
+make_schema_at(
+    'MythConverg::Schema',
+    { debug => 1,
+      dump_directory => './lib',
+    },
+    [ 'dbi:mysql:database=mythconverg', 'mythtv', 'jackjack',
+      # { loader_class => 'MyLoader' } # optionally
+    ],
+    );
