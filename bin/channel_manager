@@ -69,6 +69,48 @@ my $s = MythConverg::Schema->connect(
     { mysql_enable_utf8 => 1, quote_char => q{`}, name_sep => q{.} },  
 );
 
+# get some tables
+my $sources = $s->resultset('Videosource');
+my $channels = $s->resultset('Channel');
+my $multiplexes = $s->resultset('DtvMultiplex');
+
+# for each entry in config_channels, see if it exists in the database
+foreach my $sid (keys %config_chans) {
+
+    # Get current config channel
+    my $config_chan = $config_chans{$sid};
+
+    # Find corresponding channel in scan data
+    my $scanned_chan = $scanned_chans{$sid};
+
+    # If channel can't be found, try searching on callsign and then die
+    if (!defined($scanned_chan)) {
+	my @name_matches = grep { $scanned_chans{$_}->{cs} eq ($config_chan->{callsign}) } keys %scanned_chans;
+	
+	if (scalar @name_matches < 1) {
+	    print "$config_chan->{callsign} ($sid): no match on ServiceID or name\n";
+	} elsif (scalar @name_matches eq 1) {
+	    print "$config_chan->{callsign} ($sid): ServiceID changed to @name_matches\n";
+	} else {
+	    print "$config_chan->{callsign} ($sid): ServiceID changed.  Multiple name matches: " . join(',', @name_matches) . "\n";
+	}
+
+	die  "Config channel $config_chan->{channum} ($config_chan->{callsign}) not found in scan! Please fix config.\n";
+    }
+
+    # Look for matching channel in db
+    my @db_chans = $channels->search({serviceid => $sid});
+
+    # Bail out if there are multiple channels with the same service id
+    die "Multiple channels in database with serviceid $sid!\n"
+	if scalar @db_chans > 1;
+
+    # if we have found exactly one match then check frequency data
+    if (scalar @db_chans eq 1) {
+	my $db_chan = @db_chans[0];
+	print $db_chan->callsign . "\n";
+    }
+}
 
 # my $dbh = DBI->connect("dbi:mysql:database=$database:host=$dbhost","$user","$pass") || die "Cannot connect to database ($!)\n";
 
