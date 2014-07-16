@@ -13,7 +13,6 @@ my $dbhost="127.0.0.1";
 my $database="mythconverg";
 my $user="mythtv";
 my $pass="mythtv";
-my $hidden = 0;
 my $scan="channels.conf";
 my $conf="contrib/freesat.csv";
 my $videosource = "xmltv";
@@ -22,7 +21,6 @@ GetOptions('dbhost=s'=>\$dbhost,
            'database=s'=>\$database,
            'user=s'=>\$user,
            'pass=s'=>\$pass,
-           'hidden!'=>\$hidden,
 	   'scan=s'=>\$scan,
 	   'conf=s'=>\$conf,
 	   'videosource=s'=>\$videosource
