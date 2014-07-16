@@ -107,36 +107,47 @@ foreach my $sid (keys %config_chans) {
     }
 
     # Look for matching channel in db, checking serviceid and callsign
-    my @db_chans = $channels->search({serviceid => $sid, callsign => $config_chan->{callsign}});
+    my @db_chans = $channels->search({serviceid => $sid});
 
     # Bail out if there are multiple channels with the same service id
     die "Multiple channels in database with serviceid $sid!\n"
 	if scalar @db_chans > 1;
 
-    # if we have found exactly one match then check frequency data in db matches scan
+    # Found one possible match.  Check callsign.
     if (scalar @db_chans eq 1) {
+
 	my $db_chan = $db_chans[0];
-	my $db_mplex = $multiplexes->find({mplexid => $db_chan->mplexid});
-	my $params = $scanned_chan->{__parameters__};
+	my $db_callsign = $db_chan->callsign;
+	$db_callsign =~ s/:/ /g;
 
-	if ((abs($db_mplex->frequency / 1000 - $scanned_chan->{freq}) < 5) &&
-	    ($db_mplex->polarity eq $params->{polarity}) &&
-	    ($db_mplex->modulation eq $params->{modulation}) &&
-	    ($db_mplex->fec eq $params->{fec})) {
+	if ($db_callsign eq $config_chan->{callsign}) {
 
-	    # Everything OK.  Set channel visible.
-	    $db_chan->update({visible => 1});
+	    # Have a good match in the database
+	    my $db_mplex = $multiplexes->find({mplexid => $db_chan->mplexid});
+	    my $params = $scanned_chan->{__parameters__};
 
+	    if ((abs($db_mplex->frequency / 1000 - $scanned_chan->{freq}) < 5) &&
+		($db_mplex->polarity eq $params->{polarity}) &&
+		($db_mplex->modulation eq $params->{modulation}) &&
+		($db_mplex->fec eq $params->{fec})) {
+
+		# Everything OK.  Set channel visible.
+		$db_chan->update({visible => 1});
+
+	    } else {
+
+		# Serviceid/callsign match but tuning data are different.  Update/create multiplex and change mplexid in channel table and set visible
+		print "Tuning details differ for $config_chan->{callsign} (SID: $config_chan->{sid}).  Updating multiplex.\n";
+
+		my $mplex = find_multiplex($multiplexes, $scanned_chan);
+		$db_chan->update({
+		    mplexid => $mplex->mplexid,
+		    visible => 1
+				 });
+	    }
 	} else {
-
-	    # Serviceid/callsign match but tuning data are different.  Update/create multiplex and change mplexid in channel table and set visible
-	    print "Tuning details differ for $config_chan->{callsign} (SID: $config_chan->{sid}).  Updating multiplex.\n";
-
-	    my $mplex = find_multiplex($multiplexes, $scanned_chan);
-	    $db_chan->update({
-		mplexid => $mplex->mplexid,
-		visible => 1
-			     });
+	    # Don't have a match on callsign or serviceid
+	    die "Barfed because sid in db has wrong callsign\n";
 	}
     } else {
 
