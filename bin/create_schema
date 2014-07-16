@@ -6,7 +6,7 @@ make_schema_at(
     { debug => 1,
       dump_directory => './lib',
     },
-    [ 'dbi:mysql:database=mythconverg', 'mythtv', 'jackjack',
+    [ 'dbi:mysql:database=mythconverg', 'mythtv', 'mythtv',
       # { loader_class => 'MyLoader' } # optionally
     ],
     );
