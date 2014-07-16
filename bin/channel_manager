@@ -119,19 +119,24 @@ foreach my $sid (keys %config_chans) {
 	    ($db_mplex->fec eq $params->{fec})) {
 	    # Everything OK.  Set channel visible.
 	} else {
-	    # Serviceid/callsign match but tuning data are different.  Update/create multiplex and change mplexid in channel table.
-	    print "Details differ.\n"
+	    # Serviceid/callsign match but tuning data are different.  Update/create multiplex and change mplexid in channel table and set visible
+	    print "Tuning details differ.  Updating multiplex\n";
 	}
     } else {
 	# Config channel doesn't have a direct match on callsign and serviceid.  Search by callsign for outdated record.
 	my @db_chans = $channels->search({callsign => $config_chan->{callsign}});
-	print "Config channel $config_chan->{callsign} missing from database.  Found " . scalar @db_chans ." matches on callsign.\n";
+	print "Config channel $config_chan->{callsign} (SID: $config_chan->{sid}) missing from database.  Found " . scalar @db_chans ." matches on callsign.\n";
 
 	# If we have only one match, try to fix it up.  Otherwise die.
-	die "Found too many matces on callsign to continue.\n"
+	die "Found too many matches on callsign to continue.\n"
 	    if scalar @db_chans > 1;
+
+	# Find correct multiplex using scan data.  Update serviceid and mplexid and set visible.
+	
     }
 }
+
+# Check some option and then delete any invisible channels.
 
 sub parse_vdr_line {
     my $line = shift;
