@@ -30,6 +30,19 @@ my @conf_chans_file = read_file $conf;
 die "Config file '$conf' is empty!\n"
     if 0 == scalar @conf_chans_file;
 
+# put details into hashref
+my %config_chans;
+foreach my $line (@conf_chans_file) {
+    chomp($line);
+    my ($channum, $callsign, $xmltvid, $sid)  = split(',',$line);
+    $config_chans{$sid} = {
+	channum => $channum,
+	callsign => $callsign,
+	xmltvid => $xmltvid,
+	sid => $sid
+    };
+}
+
 # read scanned channels
 my @scanned_chans_file = read_file $scan;
 die "Config file '$scan' is empty!\n"
