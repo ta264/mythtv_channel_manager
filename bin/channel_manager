@@ -6,6 +6,9 @@ use Getopt::Long;
 use List::MoreUtils qw/ uniq /;
 use File::Slurp;
 
+use lib './lib';
+use MythConverg::Schema;
+
 my $dbhost="127.0.0.1";
 my $database="mythconverg";
 my $user="mythtv";
@@ -48,6 +51,7 @@ my @scanned_chans_file = read_file $scan;
 die "Config file '$scan' is empty!\n"
     if 0 == scalar @scanned_chans_file;
 
+# put scanned channels into hashref
 my %scanned_chans;
 foreach my $line (@scanned_chans_file)
 {
@@ -57,6 +61,13 @@ foreach my $line (@scanned_chans_file)
     # put into hashref
     $scanned_chans{$scan->{sid}} = $scan;
 }
+
+# connect to db
+my $s = MythConverg::Schema->connect(
+    'dbi:mysql:database=mythconverg',
+    'mythtv', $pass,
+    { mysql_enable_utf8 => 1, quote_char => q{`}, name_sep => q{.} },  
+);
 
 
 # my $dbh = DBI->connect("dbi:mysql:database=$database:host=$dbhost","$user","$pass") || die "Cannot connect to database ($!)\n";
