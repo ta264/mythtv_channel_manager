@@ -25,131 +25,181 @@ GetOptions('dbhost=s'=>\$dbhost,
 	   'conf=s'=>\$conf
            ) || die "Usage:";
 
-my @conf_chans = read_file $conf;
+# read config file
+my @conf_chans_file = read_file $conf;
 die "Config file '$conf' is empty!\n"
-    if 0 == scalar @conf_chans;
+    if 0 == scalar @conf_chans_file;
+
+# read scanned channels
+my @scanned_chans_file = read_file $scan;
+die "Config file '$scan' is empty!\n"
+    if 0 == scalar @scanned_chans_file;
 
 my %scanned_chans;
-
-# parse provided config fix
-print "Parsing channels file: $scan\n\n";
-open CONFIG, "<$scan" or die "Failed to open channels.conf file $scan";
-my $line;
-
-while (defined($line = <CONFIG>))
+foreach my $line (@scanned_chans_file)
 {
     chomp($line);
-    my @parts = split(':',$line);
-    my $name = $parts[0];
-    my $freq = $parts[1];
-    my $info = $parts[2];
-    my $serviceid = $parts[9];
-
-    # parse info block
-    my $polarity = substr $info, 0, 1;
-    my $fec = substr $info, 2, 2;
-    my $modulation = substr $info, 5, 1;
-    my $rolloff = substr $info, 7, 2;
-
-    my $info2 = join "", $polarity, "C", $fec, "M", $modulation, "O", $rolloff;
+    my $scan = parse_vdr_line($line);
 
     # put into hashref
-    $scanned_chans{$serviceid} = {
-	name => $name,
-	frequency => $freq,
-	info => $info2,
-	polarity => $polarity,
-	fec => $fec,
-	modulation => $modulation,
-	rolloff => $rolloff
+    $scanned_chans{$scan->{sid}} = $scan;
+}
+
+
+# my $dbh = DBI->connect("dbi:mysql:database=$database:host=$dbhost","$user","$pass") || die "Cannot connect to database ($!)\n";
+
+# my $sql = sprintf("SELECT callsign, frequency, polarity, modulation, symbolrate, serviceid, fec, rolloff
+#                    FROM channel JOIN dtv_multiplex USING (mplexid)
+#                    WHERE channel.sourceid = ? %s
+#                    ORDER BY channum",
+#                   ($hidden ? "" : "AND channel.visible = 1")
+#                   );
+# my $sth = $dbh->prepare($sql);
+# $sth->execute($sourceid);
+
+# my @moved_channels;
+# my @missing_channels;
+# my @changed_sid;
+# my @tune_needed;
+
+# while (my @row=$sth->fetchrow_array) {
+#     my $callsign = $row[0];
+#     $callsign =~ s/:/ /g;
+#     my $frequency = int($row[1] / 1000);
+#     my $polarity = uc $row[2];
+#     my $modulation = ($row[3] eq "qpsk") ? "2" : "5";
+#     my $type = ($modulation eq "5") ? "S1" : "";
+#     my $symbolrate = int($row[4] / 1000);
+#     my $serviceid = $row[5];
+#     my $fec = $row[6];
+#     $fec =~ s!/!!g;
+#     my $rolloff = $row[7] * 100;
+
+#     my $info = join "", $polarity, "C", $fec, "M", $modulation, "O", $rolloff, $type;
+
+#     my $match = $scanned_chans{$serviceid};
+#     if (defined($match) && ($match->{'name'} eq ($callsign . ";BSkyB")))
+#     {
+# 	# check if frequency and info the same
+# 	if ((abs($match->{'frequency'} - $frequency) < 5) && 
+# 	    ($match->{'polarity'} eq $polarity) && 
+# 	    ($match->{'modulation'} eq $modulation) && 
+# 	    ($match->{'fec'} eq $fec))
+# 	{ }
+# 	else
+# 	{
+# 	    print "$callsign - found match $match->{'name'}\n";
+# 	    print "  Details differ. Scan: $match->{'frequency'}:$match->{'info'} MythTV: $frequency:$info\n";
+# 	    push @moved_channels, $serviceid;
+# 	    push @tune_needed, $match->{'frequency'} . ":" . $match->{'info'};
+# 	}
+#     }
+#     else
+#     {
+# 	push @missing_channels, $serviceid;
+
+# 	# look for name matches
+# 	my @name_matches = grep { $scanned_chans{$_}->{'name'} eq ($callsign . ";BSkyB") } keys %scanned_chans;
+
+# 	if (scalar @name_matches < 1) {
+# 	    print "$callsign ($serviceid): no match on ServiceID or name\n";
+# 	} elsif (scalar @name_matches eq 1) {
+# 	    print "$callsign ($serviceid): ServiceID changed to @name_matches\n";
+# 	    push @changed_sid, $serviceid;
+	    
+# 	    my $name_match = $scanned_chans{$name_matches[0]};
+# 	    push @tune_needed, $name_match->{'frequency'} . ":" . $name_match->{'info'};
+# 	} else {
+# 	    print "$callsign ($serviceid): ServiceID changed.  Multiple name matches: " . join(',', @name_matches) . "\n";
+# 	}
+#     }
+# }
+
+# $dbh->disconnect;
+
+# if (scalar @missing_channels > 0) {
+#     print "\nDelete missing channels:\n";
+#     print "DELETE FROM channel WHERE serviceid IN (" . join(',', @missing_channels) . ");\n";
+# }
+
+# if (scalar @moved_channels > 0) {
+#     print "\nDelete moved channels:\n";
+#     print "DELETE FROM channel WHERE serviceid IN (" . join(',', @moved_channels) . ");\n";
+# }
+
+# if (scalar @tune_needed > 0) {
+#     print "\nTune these frequencies:\n";
+#     print join("\n", uniq @tune_needed) . "\n";
+# }
+
+sub parse_vdr_line {
+    my $line = shift;
+
+    # http://linuxtv.org/vdrwiki/index.php/Syntax_of_channels.conf
+    # callsign;bouquet:frequency:params():source:symbolrate:vpid:apid:textpid:conditional:serviceid:networkid:transportid:radioid
+    # Channel 4;BSkyB:10714:hC56:S28.2E:22000:2327:2328:2329:0:9212:2:2041:0
+    # Channel 4;Channel 4 TV:650166:I999B8C23D12M64T2G32Y0:T:27500:560:561=eng,562=eng:0:0:8384:9018:8207:0
+
+    my ($cs,$freq,$params,$src,$sr,undef,undef,undef,undef,$sid,$nid,$tid,undef)
+        = ($line =~ m/([^:]+):?/g);
+
+    # general fixups
+    $cs =~ s/;.+//;
+    $src =~ s/^(.).*/$1/;
+
+    # satellite params
+    (my $pol = $params) =~ s{.*([hv]).*}{$1}i;
+    $pol = (length $pol > 1 ? undef : lc $pol);
+    (my $fec = $params) =~ s{.*C(\d)(\d).*}{$1/$2}; # breaks for 0, so...
+    $fec ||= 'auto';
+    (my $mod_tmp = $params) =~ s{.*M(\d+).*}{$1};
+    my $mod_sat = ($mod_tmp eq 2 ? "qpsk" : "8psk");
+    (my $rolloff = $params) =~ s{.*O(\d+).*}{$1};
+    $rolloff /= 100;
+
+    # terrestrial params
+    (my $inv = $params)  =~ s{.*I(\d+).*}{$1};
+    $inv = ($inv eq 1 ? $inv : 'auto');
+    (my $hp = $params)   =~ s{.*C(\d)(\d).*}{$1/$2}; # breaks for 0, so...
+    $hp ||= 'auto';
+    (my $lp = $params)   =~ s{.*D(\d)(\d).*}{$1/$2}; # breaks for 0, so...
+    $lp ||= 'auto';
+    (my $mod = $params)  =~ s{.*M(\d+).*}{qam_$1};
+    $mod ||= 'auto';
+    (my $bw = $params)   =~ s{.*B(\d).*}{$1};
+    (my $tmde = $params) =~ s{.*T(\d).*}{$1};
+    (my $grd = $params)  =~ s{.*G(\d+).*}{1/$1};
+    (my $hrch = $params) =~ s{.*Y(\d).*}{$1};
+    $hrch ||= 'n';
+
+    return {
+        cs => $cs,
+        freq => $freq,
+
+        '__parameters__' => ($src eq 'S' ? {
+            fec => $fec,
+            polarity => $pol,
+            mod_sys => 'DVB-S',
+	    modulation => $mod_sat,
+	    constellation => $mod_sat,
+	    rolloff => $rolloff,
+	    hierarchy => 'a',
+        } : {
+            inversion => $inv,
+            hp_code_rate => $hp,
+            lp_code_rate => $lp,
+            modulation => $mod,
+            constellation => $mod, # guess?!
+            bandwidth => $bw,
+            transmission_mode => $tmde,
+            guard_interval => $grd,
+            hierarchy => $hrch,
+        }),
+
+        src => $src,
+        sr => $sr,
+        sid => $sid,
+        nid => $nid,
+        tid => $tid,
     };
 }
-close CONFIG;
-
-
-my $dbh = DBI->connect("dbi:mysql:database=$database:host=$dbhost","$user","$pass") || die "Cannot connect to database ($!)\n";
-
-my $sql = sprintf("SELECT callsign, frequency, polarity, modulation, symbolrate, serviceid, fec, rolloff
-                   FROM channel JOIN dtv_multiplex USING (mplexid)
-                   WHERE channel.sourceid = ? %s
-                   ORDER BY channum",
-                  ($hidden ? "" : "AND channel.visible = 1")
-                  );
-my $sth = $dbh->prepare($sql);
-$sth->execute($sourceid);
-
-my @moved_channels;
-my @missing_channels;
-my @changed_sid;
-my @tune_needed;
-
-while (my @row=$sth->fetchrow_array) {
-    my $callsign = $row[0];
-    $callsign =~ s/:/ /g;
-    my $frequency = int($row[1] / 1000);
-    my $polarity = uc $row[2];
-    my $modulation = ($row[3] eq "qpsk") ? "2" : "5";
-    my $type = ($modulation eq "5") ? "S1" : "";
-    my $symbolrate = int($row[4] / 1000);
-    my $serviceid = $row[5];
-    my $fec = $row[6];
-    $fec =~ s!/!!g;
-    my $rolloff = $row[7] * 100;
-
-    my $info = join "", $polarity, "C", $fec, "M", $modulation, "O", $rolloff, $type;
-
-    my $match = $scanned_chans{$serviceid};
-    if (defined($match) && ($match->{'name'} eq ($callsign . ";BSkyB")))
-    {
-	# check if frequency and info the same
-	if ((abs($match->{'frequency'} - $frequency) < 5) && 
-	    ($match->{'polarity'} eq $polarity) && 
-	    ($match->{'modulation'} eq $modulation) && 
-	    ($match->{'fec'} eq $fec))
-	{ }
-	else
-	{
-	    print "$callsign - found match $match->{'name'}\n";
-	    print "  Details differ. Scan: $match->{'frequency'}:$match->{'info'} MythTV: $frequency:$info\n";
-	    push @moved_channels, $serviceid;
-	    push @tune_needed, $match->{'frequency'} . ":" . $match->{'info'};
-	}
-    }
-    else
-    {
-	push @missing_channels, $serviceid;
-
-	# look for name matches
-	my @name_matches = grep { $scanned_chans{$_}->{'name'} eq ($callsign . ";BSkyB") } keys %scanned_chans;
-
-	if (scalar @name_matches < 1) {
-	    print "$callsign ($serviceid): no match on ServiceID or name\n";
-	} elsif (scalar @name_matches eq 1) {
-	    print "$callsign ($serviceid): ServiceID changed to @name_matches\n";
-	    push @changed_sid, $serviceid;
-	    
-	    my $name_match = $scanned_chans{$name_matches[0]};
-	    push @tune_needed, $name_match->{'frequency'} . ":" . $name_match->{'info'};
-	} else {
-	    print "$callsign ($serviceid): ServiceID changed.  Multiple name matches: " . join(',', @name_matches) . "\n";
-	}
-    }
-}
-
-$dbh->disconnect;
-
-if (scalar @missing_channels > 0) {
-    print "\nDelete missing channels:\n";
-    print "DELETE FROM channel WHERE serviceid IN (" . join(',', @missing_channels) . ");\n";
-}
-
-if (scalar @moved_channels > 0) {
-    print "\nDelete moved channels:\n";
-    print "DELETE FROM channel WHERE serviceid IN (" . join(',', @moved_channels) . ");\n";
-}
-
-if (scalar @tune_needed > 0) {
-    print "\nTune these frequencies:\n";
-    print join("\n", uniq @tune_needed) . "\n";
-}
-
