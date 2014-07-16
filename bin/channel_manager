@@ -1,9 +1,7 @@
 #!/usr/bin/perl -w
 
 use strict;
-use DBI;
 use Getopt::Long;
-use List::MoreUtils qw/ uniq /;
 use File::Slurp;
 
 use lib './lib';
