@@ -92,7 +92,7 @@ foreach my $sid (keys %config_chans) {
     my $scanned_chan = $scanned_chans{$sid};
 
     # If channel can't be found, try searching on callsign and then die
-    if (!defined($scanned_chan)) {
+    if (!defined($scanned_chan) || ($config_chan->{callsign} ne $scanned_chan->{cs})) {
 	my @name_matches = grep { $scanned_chans{$_}->{cs} eq ($config_chan->{callsign}) } keys %scanned_chans;
 	
 	if (scalar @name_matches < 1) {
