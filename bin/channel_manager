@@ -207,6 +207,9 @@ foreach my $sid (keys %config_chans) {
     # Update channel number
     $db_chan->update({channum => $config_chan->{channum}});
 
+    # Update xmltvid
+    $db_chan->update({xmltvid => $config_chan->{xmltvid}});
+
 }
 
 # Check some option and then delete any invisible channels.
