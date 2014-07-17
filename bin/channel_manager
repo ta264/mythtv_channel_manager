@@ -75,6 +75,9 @@ my $source = $sources->find({name => $videosource})
     or die "Unknown video source '$videosource' (use -s <sourcename>).\n";
 my $sourceid = $source->sourceid;
 
+# Open xmltv output file
+open XMLTV, ">output/$videosource.xmltv" or die "Failed to open output file\n";
+
 # First we should set all channels to be not visible
 $channels->update({visible => 0});
 
@@ -209,13 +212,20 @@ foreach my $sid (keys %config_chans) {
     # Update channel number
     $db_chan->update({channum => $config_chan->{channum}});
 
-    # Update xmltvid if set, otherwise set useonairguide
-    my $useonairguide = ($config_chan->{xmltvid} eq '' ? 1 : 0);
+    # If xmltvid give, set it and create xmltv config file.  Otherwise set useonairguide.
+    my $useonairguide = 1;
+    if ($config_chan->{xmltvid} ne '') {
+	$useonairguide = 0;
+	print XMLTV "channel $config_chan->{xmltvid}\n";
+    }
+
     $db_chan->update({
 	    xmltvid => $config_chan->{xmltvid},
 	    useonairguide => $useonairguide
 		     });
 }
+
+close XMLTV;
 
 # Check some option and then delete any invisible channels.
 
