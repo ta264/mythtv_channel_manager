@@ -102,7 +102,10 @@ foreach my $sid (keys %config_chans) {
 	die  "Config channel $config_chan->{channum} ($config_chan->{callsign}) not found in scan! Please fix config.\n";
     }
 
-    # Look for matching channel in db, checking serviceid and callsign
+    # Now we have the config channel and the corresponding channel in the scan.  See if we can find it in the database too.
+    my $db_chan = undef;
+
+    # Search db by service id.
     my @db_chans = $channels->search({serviceid => $sid});
 
     # Bail out if there are multiple channels with the same service id
@@ -112,16 +115,27 @@ foreach my $sid (keys %config_chans) {
     # Found one possible match.  Check callsign.
     if (scalar @db_chans eq 1) {
 
-	my $db_chan = $db_chans[0];
+	$db_chan = $db_chans[0];
 	my $db_callsign = $db_chan->callsign;
 	$db_callsign =~ s/:/ /g;
 
-	if ($db_callsign eq $config_chan->{callsign}) {
+	# If the callsign of the db channel doesn't match, we're in trouble
+	if ($db_callsign ne $config_chan->{callsign}) {
 
-	    # Have a good match in the database
+	    $db_chan = undef;
+	    die "Barfed because sid in db has wrong callsign\n";
+
+	}
+    }
+
+    # If db_chan is defined then we have a match in the database.  Otherwise we don't so we should create a channel entry
+    if (defined($db_chan)) {
+
+	    # Have a good match in the database.  Get database multiplex and tuning data from scan.
 	    my $db_mplex = $multiplexes->find({mplexid => $db_chan->mplexid});
 	    my $params = $scanned_chan->{__parameters__};
 
+	    # Check tuning data against scan.
 	    if ((abs($db_mplex->frequency / 1000 - $scanned_chan->{freq}) < 5) &&
 		($db_mplex->polarity eq $params->{polarity}) &&
 		($db_mplex->modulation eq $params->{modulation}) &&
@@ -141,16 +155,13 @@ foreach my $sid (keys %config_chans) {
 		    visible => 1
 				 });
 	    }
-	} else {
-	    # Don't have a match on callsign or serviceid
-	    die "Barfed because sid in db has wrong callsign\n";
-	}
+
     } else {
 
 	print "Config channel $config_chan->{callsign} (SID: $config_chan->{sid}) missing from database.  ";
 
 	# Config channel doesn't have a direct match on callsign and serviceid.  Search by callsign for outdated record.
-	my @db_chans = $channels->search({callsign => $config_chan->{callsign}});
+	@db_chans = $channels->search({callsign => $config_chan->{callsign}});
 	print "Found " . scalar @db_chans ." matches on callsign.  Updating details.\n";
 
 	# If we have only one match, try to fix it up.  Otherwise die.
