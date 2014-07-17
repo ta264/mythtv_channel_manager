@@ -186,6 +186,8 @@ foreach my $sid (keys %config_chans) {
 	# Get the multiplex for the new channel
 	my $mplex = find_multiplex($multiplexes, $scanned_chan);
 
+	print "Creating channel entry for $config_chan->{callsign} (SID: $config_chan->{sid}) using multiplex " . $mplex->mplexid . "\n";
+
 	# Create a channel entry
 	my $db_chan = $channels->find_or_create(
 	    {
