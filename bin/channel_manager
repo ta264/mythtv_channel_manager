@@ -206,12 +206,6 @@ foreach my $sid (keys %config_chans) {
 
     # Now we definitely have a channel entry in the db and the tuning data is correct.  Update other metadata.
 
-    # Set channel visible.
-    $db_chan->update({visible => 1});
-
-    # Update channel number
-    $db_chan->update({channum => $config_chan->{channum}});
-
     # If xmltvid give, set it and create xmltv config file.  Otherwise set useonairguide.
     my $useonairguide = 1;
     if ($config_chan->{xmltvid} ne '') {
@@ -219,9 +213,12 @@ foreach my $sid (keys %config_chans) {
 	print XMLTV "channel $config_chan->{xmltvid}\n";
     }
 
+    # Update database
     $db_chan->update({
-	    xmltvid => $config_chan->{xmltvid},
-	    useonairguide => $useonairguide
+	visible => 1,
+	channum => $config_chan->{channum},
+	xmltvid => $config_chan->{xmltvid},
+	useonairguide => $useonairguide
 		     });
 }
 
