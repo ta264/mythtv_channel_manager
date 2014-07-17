@@ -179,15 +179,31 @@ foreach my $sid (keys %config_chans) {
 	    $db_chan->update({mplexid => $mplex->mplexid});
 	}
 
-	# Set channel visible.
-	$db_chan->update({visible => 1});
 
     } else {
 
 	# We don't have an existing channel entry so create a new one.
-	die "Don't have an existing channel entry for $config_chan->{callsign}\n";
+	# Get the multiplex for the new channel
+	my $mplex = find_multiplex($multiplexes, $scanned_chan);
 
+	# Create a channel entry
+	my $db_chan = $channels->find_or_create(
+	    {
+		chanid => (([sort {$b <=> $a} $channels->get_column('chanid')->all]->[0] || 0) + 1),
+		channum => $config_chan->{channum},
+		sourceid => $sourceid,
+		callsign => $config_chan->{callsign},
+		name => $config_chan->{callsign},
+		mplexid => $mplex->mplexid,
+		serviceid => $config_chan->{sid}
+	    });
     }
+
+    # Now we definitely have a channel entry in the db and the tuning data is correct.  Update other metadata.
+
+    # Set channel visible.
+    $db_chan->update({visible => 1});
+
 }
 
 # Check some option and then delete any invisible channels.
