@@ -225,6 +225,7 @@ foreach my $sid (keys %config_chans) {
 close XMLTV;
 
 # Check some option and then delete any invisible channels.
+$channels->search({visible => 0})->delete;
 
 sub parse_vdr_line {
     my $line = shift;
