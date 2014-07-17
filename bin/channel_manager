@@ -75,8 +75,8 @@ my $source = $sources->find({name => $videosource})
     or die "Unknown video source '$videosource' (use -s <sourcename>).\n";
 my $sourceid = $source->sourceid;
 
-
 # First we should set all channels to be not visible
+$channels->update({visible => 0});
 
 # for each entry in config_channels, see if it exists in the database
 foreach my $sid (keys %config_chans) {
