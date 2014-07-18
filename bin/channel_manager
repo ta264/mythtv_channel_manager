@@ -14,6 +14,7 @@ my $pass="mythtv";
 my $scan="channels.conf";
 my $conf="contrib/freesat.csv";
 my $videosource = "xmltv";
+my $deleteinvisible = 0;
 
 GetOptions('dbhost=s'=>\$dbhost,
            'database=s'=>\$database,
@@ -21,7 +22,8 @@ GetOptions('dbhost=s'=>\$dbhost,
            'pass=s'=>\$pass,
 	   'scan=s'=>\$scan,
 	   'conf=s'=>\$conf,
-	   'videosource=s'=>\$videosource
+	   'videosource=s'=>\$videosource,
+	   'delete-old' => \$deleteinvisible
            ) || die "Usage:";
 
 # read config file
@@ -224,8 +226,11 @@ foreach my $sid (keys %config_chans) {
 
 close XMLTV;
 
-# Check some option and then delete any invisible channels.
-$channels->search({visible => 0})->delete;
+# Check deleteinvisible option and then delete any invisible channels (i.e. ones in database but not config).
+if ($deleteinvisible eq 1) {
+    print "Deleting database channels not in config.\n";
+    $channels->search({visible => 0})->delete;
+}
 
 sub parse_vdr_line {
     my $line = shift;
