@@ -31,20 +31,8 @@ my @conf_chans_file = read_file $conf;
 die "Config file '$conf' is empty!\n"
     if 0 == scalar @conf_chans_file;
 
-# put details into hashref
-my %config_chans;
+# get rid of header line
 my $header_dummy = shift @conf_chans_file;
-foreach my $line (@conf_chans_file) {
-    chomp($line);
-    my ($channum, $callsign, $xmltvid, $sid, $icon)  = split(',',$line);
-    $config_chans{$sid} = {
-	channum => $channum,
-	callsign => $callsign,
-	xmltvid => $xmltvid,
-	sid => $sid,
-	icon => $icon
-    };
-}
 
 # read scanned channels
 my @scanned_chans_file = read_file $scan;
@@ -85,28 +73,29 @@ open XMLTV, ">output/$videosource.xmltv" or die "Failed to open output file\n";
 # First we should set all channels to be not visible
 $channels->update({visible => 0});
 
-# for each entry in config_channels, see if it exists in the database
-foreach my $sid (keys %config_chans) {
+# for each entry in config file find corresponding tuning data then check the database entry
+foreach my $line (@conf_chans_file) {
 
-    # Get current config channel
-    my $config_chan = $config_chans{$sid};
+    # Get details for current channel
+    chomp($line);
+    my ($channum, $callsign, $xmltvid, $sid, $icon)  = split(',',$line);
 
     # Find corresponding channel in scan data
     my $scanned_chan = $scanned_chans{$sid};
 
     # If channel can't be found, try searching on callsign and then die
-    if (!defined($scanned_chan) || ($config_chan->{callsign} ne $scanned_chan->{cs})) {
-	my @name_matches = grep { $scanned_chans{$_}->{cs} eq ($config_chan->{callsign}) } keys %scanned_chans;
+    if (!defined($scanned_chan) || ($callsign ne $scanned_chan->{cs})) {
+	my @name_matches = grep { $scanned_chans{$_}->{cs} eq $callsign } keys %scanned_chans;
 	
 	if (scalar @name_matches < 1) {
-	    print "$config_chan->{callsign} ($sid): no match on ServiceID or name\n";
+	    print "$callsign ($sid): no match on ServiceID or name\n";
 	} elsif (scalar @name_matches eq 1) {
-	    print "$config_chan->{callsign} ($sid): ServiceID changed to @name_matches\n";
+	    print "$callsign ($sid): ServiceID changed to @name_matches\n";
 	} else {
-	    print "$config_chan->{callsign} ($sid): ServiceID changed.  Multiple name matches: " . join(',', @name_matches) . "\n";
+	    print "$callsign ($sid): ServiceID changed.  Multiple name matches: " . join(',', @name_matches) . "\n";
 	}
 
-	die  "Config channel $config_chan->{channum} ($config_chan->{callsign}) not found in scan! Please fix config.\n";
+	die  "Config channel $channum ($callsign) not found in scan! Please fix config.\n";
     }
 
     # Now we have the config channel and the corresponding channel in the scan.  See if we can find it in the database too.
@@ -127,7 +116,7 @@ foreach my $sid (keys %config_chans) {
 	$db_callsign =~ s/:/ /g;
 
 	# If the callsign of the db channel doesn't match, we're in trouble
-	if ($db_callsign ne $config_chan->{callsign}) {
+	if ($db_callsign ne $callsign) {
 	    $db_chan = undef;
 	    die "Barfed because sid in db has wrong callsign\n";
 	}
@@ -135,11 +124,11 @@ foreach my $sid (keys %config_chans) {
     } else {
 
 	# Didn't find any matches on Service ID.  Search by callsign for outdated record.
-	print "Config channel $config_chan->{callsign} (SID: $config_chan->{sid}) missing from database.\n";
+	print "Config channel $callsign (SID: $sid) missing from database.\n";
 
 	# Config channel doesn't have a direct match on callsign and serviceid.  Search by callsign for outdated record
 	# i.e. look for correct callsign but wrong service id.
-	@db_chans = $channels->search({callsign => $config_chan->{callsign}});
+	@db_chans = $channels->search({callsign => $callsign});
 	print "    Found " . scalar @db_chans ." matches on callsign.\n";
 
 	# If we have too many matches on callsign then die.
@@ -159,10 +148,10 @@ foreach my $sid (keys %config_chans) {
     if (defined($db_chan)) {
 
 	# First check the SID against the config (which has been checked for consistency with the scan already).
-	if ($db_chan->serviceid ne $config_chan->{sid}) {
+	if ($db_chan->serviceid ne $sid) {
 	    # Update service id
-	    print "Updating serviceid for $config_chan->{callsign} to $config_chan->{sid}) from " . $db_chan->serviceid . "\n";
-	    $db_chan->update({serviceid => $config_chan->{sid}});
+	    print "Updating serviceid for $callsign to $sid) from " . $db_chan->serviceid . "\n";
+	    $db_chan->update({serviceid => $sid});
 	}
 
 	#Get database multiplex and tuning data from scan.
@@ -180,7 +169,7 @@ foreach my $sid (keys %config_chans) {
 	} else {
 
 	    # Tuning data are different.  Update/create multiplex and change mplexid in channel table.
-	    print "Tuning details differ for $config_chan->{callsign} (SID: $config_chan->{sid}).  Updating multiplex.\n";
+	    print "Tuning details differ for $callsign (SID: $sid).  Updating multiplex.\n";
 
 	    my $mplex = find_multiplex($multiplexes, $scanned_chan);
 	    $db_chan->update({mplexid => $mplex->mplexid});
@@ -193,18 +182,18 @@ foreach my $sid (keys %config_chans) {
 	# Get the multiplex for the new channel
 	my $mplex = find_multiplex($multiplexes, $scanned_chan);
 
-	print "Creating channel entry for $config_chan->{callsign} (SID: $config_chan->{sid}) using multiplex " . $mplex->mplexid . "\n";
+	print "Creating channel entry for $callsign (SID: $sid) using multiplex " . $mplex->mplexid . "\n";
 
 	# Create a channel entry
 	my $db_chan = $channels->find_or_create(
 	    {
 		chanid => (([sort {$b <=> $a} $channels->get_column('chanid')->all]->[0] || 0) + 1),
-		channum => $config_chan->{channum},
+		channum => $channum,
 		sourceid => $sourceid,
-		callsign => $config_chan->{callsign},
-		name => $config_chan->{callsign},
+		callsign => $callsign,
+		name => $callsign,
 		mplexid => $mplex->mplexid,
-		serviceid => $config_chan->{sid}
+		serviceid => $sid
 	    });
     }
 
@@ -212,22 +201,22 @@ foreach my $sid (keys %config_chans) {
 
     # If xmltvid give, set it and create xmltv config file.  Otherwise set useonairguide.
     my $useonairguide = 1;
-    if ($config_chan->{xmltvid} ne '') {
+    if ($xmltvid ne '') {
 	$useonairguide = 0;
-	print XMLTV "channel $config_chan->{xmltvid}\n";
+	print XMLTV "channel $xmltvid\n";
     }
 
     # Update database
     $db_chan->update({
 	visible => 1,
-	channum => $config_chan->{channum},
-	xmltvid => $config_chan->{xmltvid},
+	channum => $channum,
+	xmltvid => $xmltvid,
 	useonairguide => $useonairguide
 		     });
 
     # Set icon if specified (we don't want to overwrite existing if it's not)
-    if ($config_chan->{icon} ne '') {
-	$db_chan->update({icon => $config_chan->{icon}});
+    if ($icon ne '') {
+	$db_chan->update({icon => $icon});
     }
 }
 
