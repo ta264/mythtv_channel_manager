@@ -33,6 +33,7 @@ die "Config file '$conf' is empty!\n"
 
 # put details into hashref
 my %config_chans;
+my $header_dummy = shift @conf_chans_file;
 foreach my $line (@conf_chans_file) {
     chomp($line);
     my ($channum, $callsign, $xmltvid, $sid)  = split(',',$line);
