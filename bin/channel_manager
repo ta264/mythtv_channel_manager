@@ -36,12 +36,13 @@ my %config_chans;
 my $header_dummy = shift @conf_chans_file;
 foreach my $line (@conf_chans_file) {
     chomp($line);
-    my ($channum, $callsign, $xmltvid, $sid)  = split(',',$line);
+    my ($channum, $callsign, $xmltvid, $sid, $icon)  = split(',',$line);
     $config_chans{$sid} = {
 	channum => $channum,
 	callsign => $callsign,
 	xmltvid => $xmltvid,
-	sid => $sid
+	sid => $sid,
+	icon => $icon
     };
 }
 
@@ -223,6 +224,11 @@ foreach my $sid (keys %config_chans) {
 	xmltvid => $config_chan->{xmltvid},
 	useonairguide => $useonairguide
 		     });
+
+    # Set icon if specified (we don't want to overwrite existing if it's not)
+    if ($config_chan->{icon} ne '') {
+	$db_chan->update({icon => $config_chan->{icon}});
+    }
 }
 
 close XMLTV;
