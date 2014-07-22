@@ -3,6 +3,7 @@
 use strict;
 use Getopt::Long;
 use File::Slurp;
+use File::Fetch;
 
 use lib './lib';
 use MythConverg::Schema;
@@ -15,6 +16,8 @@ my $scan="channels.conf";
 my $conf="contrib/freesat.csv";
 my $videosource = "xmltv";
 my $deleteinvisible = 0;
+my $downloadicons = 0;
+my $url = "http://www.lyngsat-logo.com/logo/tv/";
 
 GetOptions('dbhost=s'=>\$dbhost,
            'database=s'=>\$database,
@@ -23,7 +26,8 @@ GetOptions('dbhost=s'=>\$dbhost,
 	   'scan=s'=>\$scan,
 	   'conf=s'=>\$conf,
 	   'videosource=s'=>\$videosource,
-	   'delete-old' => \$deleteinvisible
+	   'delete-old' => \$deleteinvisible,
+	   'download-icons' => \$downloadicons,
            ) || die "Usage:";
 
 # read config file
@@ -217,6 +221,17 @@ foreach my $line (@conf_chans_file) {
     # Set icon if specified (we don't want to overwrite existing if it's not)
     if ($icon ne '') {
 	$db_chan->update({icon => $icon});
+    }
+
+    # If icon download asked for, fetch all the icons from lyngsat
+    if ($downloadicons eq 1) {
+
+	my $icon_dl = $url . substr($icon, 0, 1) x 2 . "/" . $icon;
+	my $ff = File::Fetch->new(uri => $icon_dl);
+	my $where = $ff->fetch( to => './output/icons' );
+
+	print "Downloaded $icon_dl\n";
+
     }
 }
 
