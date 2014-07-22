@@ -44,7 +44,7 @@ channum,callsign,xmltvid,serviceid,icon
 149,Food Network,foodnetwork.com,53260,
 150,Travel Channel,sat.travelchannel.co.uk,54102,
 151,Food Netwrk+1,tsod.plus-1.foodnetwork.com,53270,
-153,True Drama,,53380,
+153,True Drama,,53380,true_drama_uk.jpg
 200,BBC NEWS HD,hd.news.bbc.co.uk,8921,
 201,BBC Parliament,parliament.bbc.co.uk,10307,
 202,Sky News,sky-news.sky.com,4706,
@@ -98,7 +98,7 @@ channum,callsign,xmltvid,serviceid,icon
 606,Kix,,53350,kix_uk.png
 607,CBBC,cbbc.bbc.co.uk,6370,
 608,CBeebies,cbeebies.bbc.co.uk,6318,
-609,Tiny Pop +1,tsod.plus-1.tinypop.com,53345,
+609,Tiny Pop +1,tsod.plus-1.tinypop.com,53345,tiny_pop.jpg
 650,Psychic Today,,55226,
 651,Community,communitychannel.org,4753,
 652,Forces TV,,6033,forces_tv_uk.png
