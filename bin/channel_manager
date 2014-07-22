@@ -185,7 +185,7 @@ foreach my $line (@conf_chans_file) {
 	print "Creating channel entry for $callsign (SID: $sid) using multiplex " . $mplex->mplexid . "\n";
 
 	# Create a channel entry
-	my $db_chan = $channels->find_or_create(
+	$db_chan = $channels->find_or_create(
 	    {
 		chanid => (([sort {$b <=> $a} $channels->get_column('chanid')->all]->[0] || 0) + 1),
 		channum => $channum,
