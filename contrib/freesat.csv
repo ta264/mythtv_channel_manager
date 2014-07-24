@@ -26,32 +26,32 @@ channum,callsign,xmltvid,serviceid,icon
 128,Channel 5+1,plus-1.channel5.com,7720,channel5_region1_plus1.jpg
 129,5 USA,fiveusa.channel5.com,7710,channel5_usa.jpg
 130,5 USA +1,plus-1.fiveusa.channel5.com,7711,channel5_usa.jpg
-131,5*,,7715,channel5_star.jpg
-132,Channel 5+24,,7716,channel5_region1.jpg
+131,5*,fivestar.channel5.com,7715,channel5_star.jpg
+132,Channel 5+24,plus-24.channel5.com,7716,channel5_region1.jpg
 134,CBS Drama,drama.cbs.com,50903,cbs_drama.jpg
 135,CBS Reality,reality.cbs.com,53275,cbs_reality.jpg
 136,CBS Reality+1,plus-1.reality.cbs.com,52102,cbs_reality.jpg
 137,CBS Action,action.cbs.com,52007,cbs_action.jpg
 138,horror channel,horror.cbs.com,52105,horror_channel_uk.jpg
 139,horror ch+1,plus-1.horror.cbs.com,52002,horror_channel_uk.jpg
-140,BET BlackEntTv,,51081,bet_uk.jpg
-141,BET +1,,51082,bet_uk_plus1.jpg
+140,BET BlackEntTv,international.bet.com,51081,bet_uk.jpg
+141,BET +1,plus-1.international.bet.com,51082,bet_uk_plus1.jpg
 142,True Ent,entertainment.truemovies.tv,53375,true_entertainment.jpg
-143,more>movies,,54110,more_movies_uk.jpg
+143,more>movies,morethan.movies4men.co.uk,54110,more_movies_uk.jpg
 144,Pick,pick.sky.com,5109,pick_tv.jpg
 145,Challenge,challengetv.co.uk,6032,challenge_tv.jpg
-146,VIVA,,7009,viva_uk.jpg
+146,VIVA,uk.viva.tv,7009,viva_uk.jpg
 149,Food Network,foodnetwork.com,53260,food_network_uk.jpg
 150,Travel Channel,travelchannel.co.uk,54102,travelchannel.jpg
 151,Food Netwrk+1,plus-1.foodnetwork.com,53270,food_network_uk.jpg
-153,True Drama,,53380,true_drama_uk.jpg
+153,True Drama,drama.truemovies.tv,53380,true_drama_uk.jpg
 200,BBC NEWS HD,hd.news.bbc.co.uk,8921,bbc_news.jpg
 201,BBC Parliament,parliament.bbc.co.uk,10307,bbcparliament.jpg
 202,Sky News,news.sky.com,4706,sky_news.jpg
 203,Al Jazeera Eng,aljazeera.net,51107,al_jazeera.jpg
-204,Euronews,,54224,euronews.jpg
-205,FRANCE Eng,,52570,france24_english.png
-206,RT HD,,53148,rt_english.jpg
+204,Euronews,euronews.com,54224,euronews.jpg
+205,FRANCE Eng,france24.com,52570,france24_english.png
+206,RT HD,hd.rt.com,53148,rt_english.jpg
 207,CNN,europe.cnn.com,7140,cnn.jpg
 208,Bloomberg,bloomberg.com,52550,bloomberg.jpg
 209,NHK World HD,hd.world.nhk.or.jp,53147,nhk_world.jpg
@@ -64,7 +64,7 @@ channum,callsign,xmltvid,serviceid,icon
 303,True Movies 2,2.truemovies.tv,53325,true_movies2.jpg
 304,movies4men,1.movies4men.co.uk,51116,movies_4_men.jpg
 305,mov4men+1,plus-1.1.movies4men.co.uk,51118,movies_4_men.jpg
-400,Showcase,,53280,showcase_tv_uk.png
+400,Showcase,showcase.information.tv,53280,showcase_tv_uk.png
 401,Information TV,,53230,information_tv.jpg
 402,Showcase 2,,53285,showcase_2_uk.jpg
 408,The Active Ch,,55330,active_channel.jpg
@@ -72,20 +72,20 @@ channum,callsign,xmltvid,serviceid,icon
 410,FilmOn.TV,,52016,film_on_tv_us.png
 500,Chart Show TV,chartshow.com,53365,chart_show.jpg
 501,The Vault,,53355,the_vault.jpg
-502,Flava,,53300,flava_uk.jpg
-503,Chartshw Dnce,,53315,dance_nation.jpg
+502,Flava,essentialflava.com,53300,flava_uk.jpg
+503,Chartshw Dnce,mydancenation.com,53315,dance_nation.jpg
 504,B4U Music,,52135,b4u_music_in.jpg
 505,Starz TV,,53335,starz.jpg
 506,Bliss,bliss.co.uk,53305,bliss.jpg
 510,Clubland TV,,55113,clubland_tv_uk.png
 511,Planet Pop,,55114,planet_pop_uk.jpg
 512,NOW Music,,52010,now_thats_what_i_call_music_uk.jpg
-515,Vintage TV,,52180,vintage_tv.jpg
+515,Vintage TV,vintage.tv,52180,vintage_tv.jpg
 516,Heart TV,,55111,heart_tv_uk.jpg
 517,CAPITAL TV,,55112,capital_tv_uk.jpg
 518,KISS,totalkiss.com,12010,kiss_uk.jpg
 519,The Box,thebox.co.uk,12005,the_box_uk.jpg
-520,Heat,,52060,heat_tv_uk.jpg
+520,Heat,tv.heatworld.com,52060,heat_tv_uk.jpg
 521,Smash Hits!,smashhits.net,12020,smashhits_uk.jpg
 523,Magic,magictv.co.uk,52065,magictv_uk.jpg
 524,Kerrang!,kerrang.com,12015,kerrang_tv.jpg
@@ -93,19 +93,19 @@ channum,callsign,xmltvid,serviceid,icon
 601,CBeebies HD,hd.cbeebies.bbc.co.uk,8932,bbc_cbeebies.jpg
 602,CITV,citv.itv.com,10071,citv.jpg
 603,POP,popfun.co.uk,53340,pop_uk.jpg
-604,PopGirl,,53360,pop_girl.jpg
+604,PopGirl,popgirlworld.com,53360,pop_girl.jpg
 605,Tiny Pop,tinypop.com,53330,tiny_pop.jpg
-606,Kix,,53350,kix_uk.png
+606,Kix,kixtv.co.uk,53350,kix_uk.png
 607,CBBC,cbbc.bbc.co.uk,6370,cbbc.jpg
 608,CBeebies,cbeebies.bbc.co.uk,6318,bbc_cbeebies.jpg
 609,Tiny Pop +1,plus-1.tinypop.com,53345,tiny_pop.jpg
 650,Psychic Today,,55226,psychic_today.jpg
 651,Community,communitychannel.org,4753,communitychannel_uk.jpg
-652,Forces TV,,6033,forces_tv_uk.png
-660,SONY SAB,,54107,sony_sab_tv_asia.jpg
-661,Rishtey,,55209,rishtey_uk.png
-662,COLORS,,52520,colors_in.jpg
-663,Zing,,50470,zee_zing_uk.jpg
+652,Forces TV,tv.bfbs.com,6033,forces_tv_uk.png
+660,SONY SAB,sabtv.com,54107,sony_sab_tv_asia.jpg
+661,Rishtey,rishteytv.com,55209,rishtey_uk.png
+662,COLORS,colors.in.com,52520,colors_in.jpg
+663,Zing,zingtv.in,50470,zee_zing_uk.jpg
 690,Inspiration,,52290,inspiration_tv_us.jpg
 691,DAYSTAR,,52110,daystar_tv_network.jpg
 692,revelation,,52127,revelation_tv.jpg
@@ -116,15 +116,15 @@ channum,callsign,xmltvid,serviceid,icon
 800,QVC,qvcuk.com,7230,qvc.jpg
 803,Tristar,,54175,tristar_uk.jpg
 804,TV Warehouse,,54180,tv_warehouse_uk.jpg
-805,Gems TV,,55110,gems_tv.jpg
+805,Gems TV,gemstv.co.uk,55110,gems_tv.jpg
 806,TV SHOP,,9531,tv_shop_uk.jpg
 807,Jewelry Maker,,52006,jewellery_maker.png
 808,JML Direct,,54150,jml_direct.jpg
 809,The Store,,10115,the_store_uk.jpg
 810,Ideal Extra,,52233,ideal_extra.jpg
 811,Craft Extra,,52235,create_and_craft_extra.png
-812,Ideal World,,52232,ideal_world.jpg
-813,Create & Craft,,52234,create_and_craft.jpg
+812,Ideal World,idealworld.tv,52232,ideal_world.jpg
+813,Create & Craft,createandcraft.idealworld.tv,52234,create_and_craft.jpg
 814,QVC Extra,,7231,qvc_extra_uk.png
 815,Jewellery Ch.,,53520,the_jewellery_channel.jpg
 816,QVC Beauty,,54113,qvc_beauty_uk.jpg
@@ -134,9 +134,9 @@ channum,callsign,xmltvid,serviceid,icon
 821,High Street TV,,55102,high_street_tv.jpg
 870,Babestation,,55207,babestation.jpg
 875,PlayboyTV Chat,,53591,playboy_tv_chat.jpg
-981,BBC RB 1,,22101,bbc_red_button_uk.png
-982,BBC RB 2,,22102,bbc_red_button_uk.png
-983,BBC RB 3,,22103,bbc_red_button_uk.png
-984,BBC RB 4,,22104,bbc_red_button_uk.png
-985,BBC RB 5,,22105,bbc_red_button_uk.png
-986,BBC RB HD,,22110,bbc_red_button_uk.png
+981,BBC RB 1,1.interactive.bbc.co.uk,22101,bbc_red_button_uk.png
+982,BBC RB 2,2.interactive.bbc.co.uk,22102,bbc_red_button_uk.png
+983,BBC RB 3,3.interactive.bbc.co.uk,22103,bbc_red_button_uk.png
+984,BBC RB 4,4.interactive.bbc.co.uk,22104,bbc_red_button_uk.png
+985,BBC RB 5,5.interactive.bbc.co.uk,22105,bbc_red_button_uk.png
+986,BBC RB HD,hd.interactive.bbc.co.uk,22110,bbc_red_button_uk.png
