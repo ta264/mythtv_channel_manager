@@ -4,6 +4,7 @@ use strict;
 use Getopt::Long;
 use File::Slurp;
 use File::Fetch;
+use File::Copy;
 
 use lib './lib';
 use MythConverg::Schema;
@@ -71,8 +72,12 @@ my $source = $sources->find({name => $videosource})
     or die "Unknown video source '$videosource' (use -s <sourcename>).\n";
 my $sourceid = $source->sourceid;
 
-# Open xmltv output file
-open XMLTV, ">output/$videosource.xmltv" or die "Failed to open output file\n";
+# Copy header file to output file
+copy("contrib/" . $videosource . "_header.conf", "output/$videosource.xmltv")
+    or die "Copy of header file failed: $!";
+
+# Open output file
+open XMLTV, ">>output/$videosource.xmltv" or die "Failed to open output file\n";
 
 # First we should set all channels to be not visible
 $channels->update({visible => 0});
@@ -207,7 +212,7 @@ foreach my $line (@conf_chans_file) {
     my $useonairguide = 1;
     if ($xmltvid ne '') {
 	$useonairguide = 0;
-	print XMLTV "channel $xmltvid\n";
+	print XMLTV "channel=$xmltvid\n";
     }
 
     # Update database
