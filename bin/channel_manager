@@ -159,7 +159,7 @@ foreach my $line (@conf_chans_file) {
 	# First check the SID against the config (which has been checked for consistency with the scan already).
 	if ($db_chan->serviceid ne $sid) {
 	    # Update service id
-	    print "Updating serviceid for $callsign to $sid) from " . $db_chan->serviceid . "\n";
+	    print "Updating serviceid for $callsign to $sid from " . $db_chan->serviceid . "\n";
 	    $db_chan->update({serviceid => $sid});
 	}
 
@@ -178,10 +178,10 @@ foreach my $line (@conf_chans_file) {
 	} else {
 
 	    # Tuning data are different.  Update/create multiplex and change mplexid in channel table.
-	    print "Tuning details differ for $callsign (SID: $sid).  Updating multiplex.\n";
-
 	    my $mplex = find_multiplex($multiplexes, $scanned_chan);
 	    $db_chan->update({mplexid => $mplex->mplexid});
+
+	    print "Tuning details differ for $callsign (SID: $sid).  Updating multiplex from " . $db_chan->mplexid . " to " . $mplex->mplexid . ".\n";
 	}
 
 
