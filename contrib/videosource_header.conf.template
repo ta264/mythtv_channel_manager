@@ -1,4 +1,4 @@
-cachedir=~/.xmltv/cache
+cachedir=/tmp/xmltv/cache
 api-key=
 writeids=yes
 lineupcode=
