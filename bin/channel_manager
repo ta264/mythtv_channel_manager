@@ -36,8 +36,10 @@ my @conf_chans_file = read_file $conf;
 die "Config file '$conf' is empty!\n"
     if 0 == scalar @conf_chans_file;
 
-# get rid of header line
-my $header_dummy = shift @conf_chans_file;
+# Save config header line for later
+my @conf_chans_out;
+my $config_header = shift @conf_chans_file;
+push @conf_chans_out, $config_header;
 
 # read scanned channels
 my @scanned_chans_file = read_file $scan;
@@ -76,8 +78,9 @@ my $sourceid = $source->sourceid;
 copy("contrib/" . $videosource . "_header.conf", "output/$videosource.xmltv")
     or die "Copy of header file failed: $!";
 
-# Open output file
+# Open output file and config file for writing
 open XMLTV, ">>output/$videosource.xmltv" or die "Failed to open output file\n";
+
 
 # First we should set all channels to be not visible
 $channels->update({visible => 0});
@@ -95,16 +98,20 @@ foreach my $line (@conf_chans_file) {
     # If channel can't be found, try searching on callsign and then die
     if (!defined($scanned_chan) || ($callsign ne $scanned_chan->{cs})) {
 	my @name_matches = grep { $scanned_chans{$_}->{cs} eq $callsign } keys %scanned_chans;
-	
-	if (scalar @name_matches < 1) {
-	    print "$callsign ($sid): no match on ServiceID or name\n";
-	} elsif (scalar @name_matches eq 1) {
-	    print "$callsign ($sid): ServiceID changed to @name_matches\n";
-	} else {
-	    print "$callsign ($sid): ServiceID changed.  Multiple name matches: " . join(',', @name_matches) . "\n";
-	}
 
-	die  "Config channel $channum ($callsign) not found in scan! Please fix config.\n";
+	if (scalar @name_matches eq 1) {
+	    print "Config channel $callsign ($sid): ServiceID changed to $name_matches[0].\n";
+	    $sid = $name_matches[0];
+	    $scanned_chan = $scanned_chans{$sid};
+	} elsif (scalar @name_matches < 1) {
+	    print "Config channel $callsign ($sid): no match in scan on ServiceID or name.\n";
+	    next;
+	} else {
+	    print "Config channel $callsign ($sid): ServiceID changed.\n  Multiple name matches in scan: " .
+		join(',', @name_matches) . 
+		".\n  Please fix config.\n";
+	    next;
+	}
     }
 
     # Now we have the config channel and the corresponding channel in the scan.  See if we can find it in the database too.
@@ -114,8 +121,10 @@ foreach my $line (@conf_chans_file) {
     my @db_chans = $channels->search({serviceid => $sid});
 
     # Bail out if there are multiple channels with the same service id
-    die "Multiple channels in database with serviceid $sid!\n"
-	if scalar @db_chans > 1;
+    if (scalar @db_chans > 1) {
+	print "Config channel $callsign ($sid): Multiple channels in database with serviceid $sid! Ignoring channel...\n";
+	next;
+    }
 
     if (scalar @db_chans eq 1) {
 
@@ -127,13 +136,14 @@ foreach my $line (@conf_chans_file) {
 	# If the callsign of the db channel doesn't match, we're in trouble
 	if ($db_callsign ne $callsign) {
 	    $db_chan = undef;
-	    die "Barfed because sid in db has wrong callsign\n";
+	    print "Barfed because sid in db has wrong callsign\n";
+	    next;
 	}
 
     } else {
 
 	# Didn't find any matches on Service ID.  Search by callsign for outdated record.
-	print "Config channel $callsign (SID: $sid) missing from database.\n";
+	print "Config channel $callsign ($sid) missing from database.\n";
 
 	# Config channel doesn't have a direct match on callsign and serviceid.  Search by callsign for outdated record
 	# i.e. look for correct callsign but wrong service id.
@@ -141,8 +151,10 @@ foreach my $line (@conf_chans_file) {
 	print "    Found " . scalar @db_chans ." matches on callsign.\n";
 
 	# If we have too many matches on callsign then die.
-	die "    Too many matches on callsign to continue.\n"
-	    if scalar @db_chans > 1;
+	if (scalar @db_chans > 1) {
+	    print "    Too many matches on callsign to continue.\n";
+	    next;
+	}
 	
 	# If we have exactly one match we'll try to fix it up.
 	if (scalar @db_chans eq 1) {
@@ -239,9 +251,17 @@ foreach my $line (@conf_chans_file) {
 	print "Downloaded $icon_dl\n";
 
     }
+
+    # Save updated details for output (i.e. the sid)
+    my $output_line = join(',',$channum, $callsign, $xmltvid, $sid, $icon . "\n");
+    push @conf_chans_out, $output_line;
 }
 
 close XMLTV;
+
+# Now overwrite config file with any changes
+write_file($conf, @conf_chans_out);
+
 
 # Check deleteinvisible option and then delete any invisible channels (i.e. ones in database but not config).
 if ($deleteinvisible eq 1) {
