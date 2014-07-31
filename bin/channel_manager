@@ -19,6 +19,7 @@ my $videosource = "xmltv";
 my $deleteinvisible = 0;
 my $downloadicons = 0;
 my $url = "http://www.lyngsat-logo.com/logo/tv/";
+my $noconfigupdate = 0;
 
 GetOptions('dbhost=s'=>\$dbhost,
            'database=s'=>\$database,
@@ -29,6 +30,7 @@ GetOptions('dbhost=s'=>\$dbhost,
 	   'videosource=s'=>\$videosource,
 	   'delete-old' => \$deleteinvisible,
 	   'download-icons' => \$downloadicons,
+	   'no-config-update' => \$noconfigupdate
            ) || die "Usage:";
 
 # read config file
@@ -260,7 +262,7 @@ foreach my $line (@conf_chans_file) {
 close XMLTV;
 
 # Now overwrite config file with any changes
-write_file($conf, @conf_chans_out);
+write_file($conf, @conf_chans_out) unless $noconfigupdate;
 
 
 # Check deleteinvisible option and then delete any invisible channels (i.e. ones in database but not config).
