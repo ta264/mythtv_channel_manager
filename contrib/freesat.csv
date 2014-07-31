@@ -37,14 +37,18 @@ channum,callsign,xmltvid,serviceid,icon
 140,BET BlackEntTv,international.bet.com,51081,bet_uk.jpg
 141,BET +1,plus-1.international.bet.com,51082,bet_uk_plus1.jpg
 142,True Ent,entertainment.truemovies.tv,53375,true_entertainment.jpg
-143,more>movies,morethan.movies4men.co.uk,54110,more_movies_uk.jpg
-144,Pick,pick.sky.com,5109,pick_tv.jpg
-145,Challenge,challengetv.co.uk,6032,challenge_tv.jpg
-146,VIVA,uk.viva.tv,7009,viva_uk.jpg
-149,Food Network,foodnetwork.com,53260,food_network_uk.jpg
-150,Travel Channel,travelchannel.co.uk,54102,travelchannel.jpg
-151,Food Netwrk+1,plus-1.foodnetwork.com,53270,food_network_uk.jpg
+143,True Ent+1,plus-1.entertainment.truemovies.tv,53371,true_entertainment.jpg
+144,more>movies,morethan.movies4men.co.uk,54110,more_movies_uk.jpg
+145,m>movies+1,plus-1.morethan.movies4men.co.uk,51120,more_movies_uk.jpg
+146,Pick,pick.sky.com,5109,pick_tv.jpg
+147,Pick+1,plus-1.pick.sky.com,5107,pick_tv.jpg
+148,Challenge,challengetv.co.uk,6032,challenge_tv.jpg
+149,Challenge+1,plus-1.challengetv.co.uk,6026,challenge_tv.jpg
+150,VIVA,uk.viva.tv,7009,viva_uk.jpg
+151,Food Network,foodnetwork.com,53260,food_network_uk.jpg
+152,Food Netwrk+1,plus-1.foodnetwork.com,53270,food_network_uk.jpg
 153,True Drama,drama.truemovies.tv,53380,true_drama_uk.jpg
+154,Travel Channel,travelchannel.co.uk,54102,travelchannel.jpg
 200,BBC NEWS HD,hd.news.bbc.co.uk,8921,bbc_news.jpg
 201,BBC Parliament,parliament.bbc.co.uk,10307,bbcparliament.jpg
 202,Sky News,news.sky.com,4706,sky_news.jpg
@@ -67,6 +71,7 @@ channum,callsign,xmltvid,serviceid,icon
 400,Showcase,showcase.information.tv,53280,showcase_tv_uk.png
 401,Information TV,,53230,information_tv.jpg
 402,Showcase 2,,53285,showcase_2_uk.jpg
+403,Showcase 2 +1,,53297,showcase_2_uk.jpg
 408,The Active Ch,theactivechannel.com,55330,active_channel.jpg
 409,holiday+cruise,,55236,holiday_cruise.jpg
 410,FilmOn.TV,,52016,film_on_tv_us.png
@@ -98,7 +103,8 @@ channum,callsign,xmltvid,serviceid,icon
 606,Kix,kixtv.co.uk,53350,kix_uk.png
 607,CBBC,cbbc.bbc.co.uk,6370,cbbc.jpg
 608,CBeebies,cbeebies.bbc.co.uk,6318,bbc_cbeebies.jpg
-609,Tiny Pop +1,plus-1.tinypop.com,53345,tiny_pop.jpg
+609,POP+1,plus-1.popfun.co.uk,53370,pop_uk.jpg
+610,Tiny Pop +1,plus-1.tinypop.com,53345,tiny_pop.jpg
 650,Psychic Today,,55226,psychic_today.jpg
 651,Community,communitychannel.org,4753,communitychannel_uk.jpg
 652,Forces TV,tv.bfbs.com,6033,forces_tv_uk.png
