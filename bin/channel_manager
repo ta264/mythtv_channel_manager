@@ -135,11 +135,10 @@ foreach my $line (@conf_chans_file) {
 	my $db_callsign = $db_chan->callsign;
 	$db_callsign =~ s/:/ /g;
 
-	# If the callsign of the db channel doesn't match, we're in trouble
+	# If the callsign of the db channel doesn't match then channel has likely been
+	# renamed, since both the config and the scan agree on the new name
 	if ($db_callsign ne $callsign) {
-	    $db_chan = undef;
-	    print "Barfed because sid in db has wrong callsign\n";
-	    next;
+	    $db_chan->update({callsign => $callsign, name => $callsign});
 	}
 
     } else {
