@@ -95,14 +95,14 @@ channum,callsign,xmltvid,serviceid,icon
 521,Smash Hits!,smashhits.net,12020,smashhits_uk.jpg
 523,Magic,magictv.co.uk,52065,magictv_uk.jpg
 524,Kerrang!,kerrang.com,12015,kerrang_tv.jpg
-600,CBBC HD,hd.cbbc.bbc.co.uk,22120,cbbc.jpg
+600,CBBC HD,hd.cbbc.bbc.co.uk,6952,cbbc.jpg
 601,CBeebies HD,hd.cbeebies.bbc.co.uk,8932,bbc_cbeebies.jpg
 602,CITV,citv.itv.com,10071,citv.jpg
 603,POP,popfun.co.uk,53340,pop_uk.jpg
 604,PopGirl,popgirlworld.com,53360,pop_girl.jpg
 605,Tiny Pop,tinypop.com,53330,tiny_pop.jpg
 606,Kix,kixtv.co.uk,53350,kix_uk.png
-607,CBBC,cbbc.bbc.co.uk,6370,cbbc.jpg
+607,CBBC,cbbc.bbc.co.uk,10352,cbbc.jpg
 608,CBeebies,cbeebies.bbc.co.uk,6318,bbc_cbeebies.jpg
 609,POP+1,plus-1.popfun.co.uk,53370,pop_uk.jpg
 610,Tiny Pop +1,plus-1.tinypop.com,53345,tiny_pop.jpg
@@ -141,4 +141,4 @@ channum,callsign,xmltvid,serviceid,icon
 821,High Street TV,,55102,high_street_tv.jpg
 870,Babestation,,55207,babestation.jpg
 875,PlayboyTV Chat,,53591,playboy_tv_chat.jpg
-981,BBC RB 1,1.interactive.bbc.co.uk,22101,bbc_red_button_uk.png
+981,BBC RB 1,1.interactive.bbc.co.uk,6390,bbc_red_button_uk.png
