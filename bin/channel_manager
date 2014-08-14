@@ -350,7 +350,8 @@ sub find_multiplex {
     my $scanned_chan = shift(@_);
 
     my $use_freq = $scanned_chan->{freq} < 1_000_000 ? $scanned_chan->{freq} * 1_000 : $scanned_chan->{freq};
-    my $mplex = $multiplexes->find_or_create(
+    my $use_sr = $scanned_chan->{sr} < 1_000_000 ? $scanned_chan->{sr} * 1_000 : $scanned_chan->{sr};
+    my $mplex = $multiplexes->find(
 	{
 	    sourceid => $sourceid,
 	    frequency => {
@@ -359,10 +360,24 @@ sub find_multiplex {
 		     $use_freq + 2500,
 		    ],
 	    },
-		    symbolrate => ($scanned_chan->{sr} < 1_000_000 ? $scanned_chan->{sr} * 1_000 : $scanned_chan->{sr}),
+		    symbolrate => $use_sr,
 		    transportid => $scanned_chan->{tid},
 		    networkid => $scanned_chan->{nid},
 		    %{ $scanned_chan->{'__parameters__'} }
+	});
+
+    # return result if we got one
+    return $mplex if defined $mplex;
+
+    # Otherwise create an entry and return it
+    $mplex = $multiplexes->create(
+	{
+	    sourceid => $sourceid,
+	    frequency => $use_freq,
+	    symbolrate => $use_sr,
+	    transportid => $scanned_chan->{tid},
+	    networkid => $scanned_chan->{nid},
+	    %{ $scanned_chan->{'__parameters__'} }
 	});
 
     return $mplex;
