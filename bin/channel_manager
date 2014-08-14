@@ -194,7 +194,7 @@ foreach my $line (@conf_chans_file) {
 	    # Tuning data are different.  Update/create multiplex and change mplexid in channel table.
 	    my $mplex = find_multiplex($multiplexes, $scanned_chan);
 
-	    print "Tuning details differ for $callsign (SID: $sid).  Updating multiplex from " . \
+	    print "Tuning details differ for $callsign (SID: $sid).  Updating multiplex from " .
 		$db_chan->mplexid . " to " . $mplex->mplexid . ".\n";
 
     	    $db_chan->update({mplexid => $mplex->mplexid});
