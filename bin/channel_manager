@@ -283,26 +283,28 @@ sub parse_vdr_line {
     my ($cs,$freq,$params,$src,$sr,undef,undef,undef,undef,$sid,$nid,$tid,undef)
         = ($line =~ m/([^:]+):?/g);
 
-    # general fixups
+    # general fixups
     $cs =~ s/;.+//;
     $src =~ s/^(.).*/$1/;
 
-    # satellite params
+    # satellite params
+    (my $src_version = $params) =~ s{.*S(\d).*}{$1};
+    $src_version = ($src_version eq '1' ? '2' : '');
     (my $pol = $params) =~ s{.*([hv]).*}{$1}i;
     $pol = (length $pol > 1 ? undef : lc $pol);
-    (my $fec = $params) =~ s{.*C(\d)(\d).*}{$1/$2}; # breaks for 0, so...
+    (my $fec = $params) =~ s{.*C(\d)(\d).*}{$1/$2}; # breaks for 0, so...
     $fec ||= 'auto';
     (my $mod_tmp = $params) =~ s{.*M(\d+).*}{$1};
     my $mod_sat = ($mod_tmp eq 2 ? "qpsk" : "8psk");
     (my $rolloff = $params) =~ s{.*O(\d+).*}{$1};
     $rolloff /= 100;
 
-    # terrestrial params
+    # terrestrial params
     (my $inv = $params)  =~ s{.*I(\d+).*}{$1};
     $inv = ($inv eq 1 ? $inv : 'auto');
-    (my $hp = $params)   =~ s{.*C(\d)(\d).*}{$1/$2}; # breaks for 0, so...
+    (my $hp = $params)   =~ s{.*C(\d)(\d).*}{$1/$2}; # breaks for 0, so...
     $hp ||= 'auto';
-    (my $lp = $params)   =~ s{.*D(\d)(\d).*}{$1/$2}; # breaks for 0, so...
+    (my $lp = $params)   =~ s{.*D(\d)(\d).*}{$1/$2}; # breaks for 0, so...
     $lp ||= 'auto';
     (my $mod = $params)  =~ s{.*M(\d+).*}{qam_$1};
     $mod ||= 'auto';
@@ -319,7 +321,7 @@ sub parse_vdr_line {
         '__parameters__' => ($src eq 'S' ? {
             fec => $fec,
             polarity => $pol,
-            mod_sys => 'DVB-S',
+            mod_sys => 'DVB-S' . $src_version,
 	    modulation => $mod_sat,
 	    constellation => $mod_sat,
 	    rolloff => $rolloff,
@@ -329,7 +331,7 @@ sub parse_vdr_line {
             hp_code_rate => $hp,
             lp_code_rate => $lp,
             modulation => $mod,
-            constellation => $mod, # guess?!
+            constellation => $mod, # guess?!
             bandwidth => $bw,
             transmission_mode => $tmde,
             guard_interval => $grd,
