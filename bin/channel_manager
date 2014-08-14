@@ -181,7 +181,7 @@ foreach my $line (@conf_chans_file) {
 	my $params = $scanned_chan->{__parameters__};
 
 	# Check tuning data against scan.
-	if ((abs($db_mplex->frequency / 1000 - $scanned_chan->{freq}) < 5) &&
+	if ((abs($db_mplex->frequency / 1000 - $scanned_chan->{freq}) <= 1) &&
 	    ($db_mplex->polarity eq $params->{polarity}) &&
 	    ($db_mplex->modulation eq $params->{modulation}) &&
 	    ($db_mplex->fec eq $params->{fec}) &&
@@ -359,8 +359,8 @@ sub find_multiplex {
 	    sourceid => $sourceid,
 	    frequency => {
 		-between => [
-		     $use_freq - 2500,
-		     $use_freq + 2500,
+		     $use_freq - 1000,
+		     $use_freq + 1000,
 		    ],
 	    },
 		    symbolrate => $use_sr,
