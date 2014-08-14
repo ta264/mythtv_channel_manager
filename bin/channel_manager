@@ -185,7 +185,8 @@ foreach my $line (@conf_chans_file) {
 	    ($db_mplex->polarity eq $params->{polarity}) &&
 	    ($db_mplex->modulation eq $params->{modulation}) &&
 	    ($db_mplex->fec eq $params->{fec}) &&
-	    ($db_mplex->transportid eq $scanned_chan->{tid})) {
+	    ($db_mplex->transportid eq $scanned_chan->{tid}) &&
+	    ($db_mplex->mod_sys eq $params->{mod_sys})) {
 
 	    # Everything OK.
 
