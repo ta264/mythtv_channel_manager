@@ -1,0 +1,6 @@
+#! /bin/bash
+
+DATE=`date +%Y%m%d`
+OUTP="scans/scan_$DATE.conf"
+
+scan-s2 -x0 contrib/Astra_freesat > $OUTP
