@@ -15,7 +15,8 @@ channum,callsign,xmltvid,serviceid,icon
 116,ITV3+1,plus-1.itv3.itv.com,10261,itv3_plus1.jpg
 117,ITV4,itv4.itv.com,10072,itv4.jpg
 118,ITV4+1,plus-1.itv4.itv.com,10015,itv4_plus1.jpg
-119,ITV,london.itv1.itv.com,10060,itv_uk.jpg
+119,ITVBe,itvbe.itv.com,10075,itv_uk_be.png
+120,ITV,london.itv1.itv.com,10060,itv_uk.jpg
 121,Channel 4 +1,plus-1.channel4.com,8311,channel4_plus1.jpg
 122,E4,e4.channel4.com,8305,e4_uk.jpg
 123,E4+1,plus-1.e4.channel4.com,8300,e4_plus1.jpg
