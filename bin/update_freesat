@@ -6,4 +6,4 @@ CONF="contrib/freesat.csv"
 DATE=`date +%Y%m%d`
 SCAN="scans/scan_$DATE.conf"
 
-bin/channel_manager --pass $PASS --conf $CONF --scan $SCAN
+bin/channel_manager --pass $PASS --conf $CONF --scan $SCAN "$@"
