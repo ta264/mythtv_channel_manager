@@ -97,18 +97,30 @@ foreach my $line (@conf_chans_file) {
     # Find corresponding channel in scan data
     my $scanned_chan = $scanned_chans{$sid};
 
-    # If channel can't be found, try searching on callsign and then die
+    # If config channel doesn't have a match on sid and callsign then try to find alternative
     if (!defined($scanned_chan) || ($callsign ne $scanned_chan->{cs})) {
+
+	# look for matches on the name given in the config file
 	my @name_matches = grep { $scanned_chans{$_}->{cs} eq $callsign } keys %scanned_chans;
 
 	if (scalar @name_matches eq 1) {
+	    # if we have one exact match on name, go with that
 	    print "Config channel $callsign ($sid): ServiceID changed to $name_matches[0].\n";
 	    $sid = $name_matches[0];
 	    $scanned_chan = $scanned_chans{$sid};
 	} elsif (scalar @name_matches < 1) {
-	    print "Config channel $callsign ($sid): no match in scan on ServiceID or name.\n";
-	    next;
+	    # If we have a match on SID but not on name then rename the config channel.
+	    if (defined($scanned_chan)) {
+		print "Config channel $callsign missing. Renaming to " . 
+		    $scanned_chan->{cs} . " based on SID.\n";
+		$callsign = $scanned_chan->{cs};
+	    } else {
+		# If we have no match on SID or name give up and move on
+		print "Config channel $callsign ($sid): no match in scan on ServiceID or name.\n";
+		next;
+	    }
 	} else {
+	    # If we have multiple name matches then we're in trouble.
 	    print "Config channel $callsign ($sid): ServiceID changed.\n  Multiple name matches in scan: " .
 		join(',', @name_matches) . 
 		".\n  Please fix config.\n";
