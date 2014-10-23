@@ -73,9 +73,9 @@ channum,callsign,xmltvid,serviceid,icon
 304,movies4men,1.movies4men.co.uk,51116,movies_4_men.jpg
 305,mov4men+1,plus-1.1.movies4men.co.uk,51118,movies_4_men.jpg
 400,Irish TV,showcase.information.tv,53280,irish_tv_ie.png
-401,Information TV,,53230,information_tv.jpg
-402,Showcase 2,,53285,showcase_2_uk.jpg
-403,Showcase 2 +1,,53297,showcase_2_uk.jpg
+401,Information TV,information.tv,53230,information_tv.jpg
+402,Showcase 2,2.showcase.information.tv,53285,showcase_2_uk.jpg
+403,Showcase 2 +1,plus-1.2.showcase.information.tv,53297,showcase_2_uk.jpg
 408,The Active Ch,,54113,active_channel.jpg
 409,holiday+cruise,holidaycruise.co.uk,55236,holiday_cruise.jpg
 410,FilmOn.TV,filmon.tv,52016,film_on_tv_us.png
@@ -86,8 +86,8 @@ channum,callsign,xmltvid,serviceid,icon
 504,B4U Music,,52135,b4u_music_in.jpg
 505,Starz TV,starz.co.uk,53335,starz.jpg
 506,Bliss,bliss.co.uk,53305,bliss.jpg
-510,Clubland TV,,55113,clubland_tv_uk.png
-511,Planet Pop,,55114,planet_pop_uk.jpg
+510,Clubland TV,clublandtv.co.uk,55113,clubland_tv_uk.png
+511,Planet Pop,planetpop.co.uk,55114,planet_pop_uk.jpg
 512,NOW Music,nowmusic.co.uk,52010,now_thats_what_i_call_music_uk.jpg
 515,Vintage TV,vintage.tv,52180,vintage_tv.jpg
 516,Heart TV,hearttv.co.uk,55111,heart_tv_uk.jpg
