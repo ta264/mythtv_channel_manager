@@ -28,7 +28,7 @@ channum,callsign,xmltvid,serviceid,icon
 129,5 USA,fiveusa.channel5.com,7710,channel5_usa.jpg
 130,5 USA +1,plus-1.fiveusa.channel5.com,7711,channel5_usa.jpg
 131,5*,fivestar.channel5.com,7715,channel5_star.jpg
-132,5* +1 FSAT,plus-1.fivestar.channel5.com,7717,channel5_star.jpg
+132,5* +1,plus-1.fivestar.channel5.com,7717,channel5_star.jpg
 133,Channel 5+24,plus-24.channel5.com,7716,channel5_region1.jpg
 134,CBS Drama,drama.cbs.com,50903,cbs_drama.jpg
 135,CBS Reality,reality.cbs.com,53275,cbs_reality.jpg
@@ -74,8 +74,8 @@ channum,callsign,xmltvid,serviceid,icon
 305,mov4men+1,plus-1.1.movies4men.co.uk,51118,movies_4_men.jpg
 400,Irish TV,,53280,irish_tv_ie.png
 401,Information TV,information.tv,53230,information_tv.jpg
-402,Showcase 2,2.showcase.information.tv,53285,showcase_2_uk.jpg
-403,Showcase 2 +1,plus-1.2.showcase.information.tv,53297,showcase_2_uk.jpg
+402,Showcase ,2.showcase.information.tv,53285,showcase_2_uk.jpg
+403,Showcase +1,plus-1.2.showcase.information.tv,53297,showcase_2_uk.jpg
 409,holiday+cruise,holidaycruise.co.uk,55236,holiday_cruise.jpg
 410,FilmOn.TV,filmon.tv,52016,film_on_tv_us.png
 500,Chart Show TV,chartshow.com,53365,chart_show.jpg
