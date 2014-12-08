@@ -76,7 +76,7 @@ channum,callsign,xmltvid,serviceid,icon
 402,Showcase ,2.showcase.information.tv,53285,showcase_2_uk.jpg
 403,Showcase +1,plus-1.showcase.information.tv,53297,showcase_2_uk.jpg
 409,holiday+cruise,holidayandcruisechannel.co.uk,55236,holiday_cruise.jpg
-410,FilmOn.TV,filmon.com,52016,film_on_tv_us.png
+410,FilmOn.TV,,52016,film_on_tv_us.png
 500,Chart Show TV,chartshow.com,53365,chart_show.jpg
 501,The Vault,thevault.com,53355,the_vault.jpg
 502,Flava,essentialflava.com,53300,flava_uk.jpg
@@ -85,7 +85,7 @@ channum,callsign,xmltvid,serviceid,icon
 505,Starz TV,starztv.co.uk,53335,starz.jpg
 506,Blissmas,bliss.co.uk,53305,bliss.jpg
 510,Clubland TV,,55113,clubland_tv_uk.png
-512,NOW Christmas,tv.nowmusic.com,52010,now_thats_what_i_call_music_uk.jpg
+512,NOW Christmas,,52010,now_thats_what_i_call_music_uk.jpg
 515,Vintage TV,,52180,vintage_tv.jpg
 516,Heart TV,,55111,heart_tv_uk.jpg
 517,CAPITAL TV,,55112,capital_tv_uk.jpg
