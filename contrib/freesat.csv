@@ -31,7 +31,7 @@ channum,callsign,xmltvid,serviceid,icon
 132,5* +1,plus-1.fivestar.channel5.com,7717,channel5_star.jpg
 133,Channel 5+24,plus-24.channel5.com,7716,channel5_region1.jpg
 134,CBS Drama,drama.cbs.com,50903,cbs_drama.jpg
-135,CBS Reality,reality.cbs.com,53275,cbs_reality.jpg
+135,CBS Reality,reality.cbs.com,52505,cbs_reality.jpg
 136,CBS Reality+1,plus-1.reality.cbs.com,52102,cbs_reality.jpg
 137,CBS Action,action.cbs.com,53710,cbs_action.jpg
 138,horror channel,horror.cbs.com,52105,horror_channel_uk.jpg
@@ -47,12 +47,12 @@ channum,callsign,xmltvid,serviceid,icon
 148,Challenge,challengetv.co.uk,6032,challenge_tv.jpg
 149,Challenge+1,plus-1.challengetv.co.uk,6026,challenge_tv.jpg
 150,VIVA,uk.viva.tv,7009,viva_uk.jpg
-151,Food Network,foodnetwork.com,53260,food_network_uk.jpg
-152,Food Netwrk+1,plus-1.foodnetwork.com,53270,food_network_uk.jpg
+151,Food Network,foodnetwork.com,52500,food_network_uk.jpg
+152,Food Netwrk+1,plus-1.foodnetwork.com,52510,food_network_uk.jpg
 153,True Drama,drama.truemovies.tv,53380,true_drama_uk.jpg
 154,Travel Channel,travelchannel.co.uk,54102,travelchannel.jpg
 155,Travel Ch +1,plus-1.travelchannel.co.uk,52100,travelchannel.jpg
-156,Tru TV,trutv.com,54101,tru_tv_uk.png
+156,tru TV,trutv.com,54101,tru_tv_uk.png
 157,BnanzaBnanza,,53730,bonanza_bonanza_uk.png
 158,ITVBe+1,plus-1.be.itv.com,10139,itv_uk_be.png
 200,BBC NEWS HD,hd.news.bbc.co.uk,8921,bbc_news_hd.png
