@@ -41,7 +41,7 @@ channum,callsign,xmltvid,serviceid,icon
 142,True Ent,entertainment.truemovies.tv,53375,true_entertainment.jpg
 143,True Ent+1,plus-1.entertainment.truemovies.tv,53371,true_entertainment.jpg
 144,more>movies,morethan.movies4men.co.uk,54110,more_movies_uk.jpg
-145,m>movies+1,plus-1.morethan.movies4men.co.uk,51120,more_movies_uk.jpg
+145,m>movies+1,plus-1.morethan.movies4men.co.uk,50896,more_movies_uk.jpg
 146,Pick,pick.sky.com,4751,pick_tv.jpg
 147,Pick+1,plus-1.pick.sky.com,5107,pick_tv.jpg
 148,Challenge,challengetv.co.uk,6032,challenge_tv.jpg
@@ -138,7 +138,7 @@ channum,callsign,xmltvid,serviceid,icon
 816,QVC Beauty,,7233,qvc_beauty_uk.jpg
 817,Rocks & Co 1,,9533,rocks_and_co.jpg
 818,QVC Style,,7232,qvc_uk.jpg
-820,Thane,,52109,thane_direct.jpg
+820,Thane,,53530,thane_direct.jpg
 821,High Street TV,,55102,high_street_tv.jpg
 870,Babestation,,55207,babestation.jpg
 875,PlayboyTV Chat,,53591,playboy_tv_chat.jpg
