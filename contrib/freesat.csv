@@ -46,7 +46,6 @@ channum,callsign,xmltvid,serviceid,icon
 147,Pick+1,plus-1.pick.sky.com,5107,pick_tv.jpg
 148,Challenge,challengetv.co.uk,6032,challenge_tv.jpg
 149,Challenge+1,plus-1.challengetv.co.uk,6026,challenge_tv.jpg
-150,VIVA,uk.viva.tv,7009,viva_uk.jpg
 151,Food Network,foodnetwork.com,52500,food_network_uk.jpg
 152,Food Netwrk+1,plus-1.foodnetwork.com,52510,food_network_uk.jpg
 153,True Drama,drama.truemovies.tv,53380,true_drama_uk.jpg
@@ -83,22 +82,16 @@ channum,callsign,xmltvid,serviceid,icon
 411,Fashion One,,55395,fashion_one_eu.png
 500,Chart Show TV,chartshow.com,53365,chart_show.jpg
 501,The Vault,,53355,the_vault.jpg
-502,Flava,essentialflava.com,53300,flava_uk.jpg
-503,Chartshw Dnce,mydancenation.com,53315,dance_nation.jpg
-504,B4U Music,,52135,b4u_music_in.jpg
-505,Starz TV,,53335,starz.jpg
-506,Bliss,bliss.co.uk,53305,bliss.jpg
-510,Clubland TV,,55113,clubland_tv_uk.png
-512,NOW Music,,52010,now_thats_what_i_call_music_uk.jpg
-515,Vintage TV,,52180,vintage_tv.jpg
-516,Heart TV,,55111,heart_tv_uk.jpg
-517,CAPITAL TV,,55112,capital_tv_uk.jpg
-518,KISS,totalkiss.com,12010,kiss_uk.jpg
-519,The Box,thebox.co.uk,12005,the_box_uk.jpg
-520,Heat,tv.heatworld.com,53715,heat_tv_uk.jpg
-521,Smash Hits!,smashhits.net,12020,smashhits_uk.jpg
-523,Magic,magictv.co.uk,53720,magictv_uk.jpg
-524,Kerrang!,kerrang.com,12015,kerrang_tv.jpg
+502,Chartshw Dnce,mydancenation.com,53315,dance_nation.jpg
+503,B4U Music,,52135,b4u_music_in.jpg
+504,Starz TV,,53335,starz.jpg
+505,Vintage TV,,52180,vintage_tv.jpg
+506,Heart TV,,55111,heart_tv_uk.jpg
+507,CAPITAL TV,,55112,capital_tv_uk.jpg
+508,KISS,totalkiss.com,12010,kiss_uk.jpg
+509,The Box,thebox.co.uk,12005,the_box_uk.jpg
+510,Magic,magictv.co.uk,53720,magictv_uk.jpg
+511,VIVA,uk.viva.tv,7009,viva_uk.jpg
 600,CBBC HD,hd.cbbc.bbc.co.uk,6952,bbc_cbbc_hd.png
 601,CBeebies HD,hd.cbeebies.bbc.co.uk,8932,bbc_cbeebies_hd.png
 602,CITV,citv.itv.com,10071,citv.jpg
