@@ -14,7 +14,7 @@ channum,callsign,xmltvid,serviceid,icon
 115,ITV3,itv3.itv.com,10260,itv3.jpg
 116,ITV3+1,plus-1.itv3.itv.com,10261,itv3_plus1.jpg
 117,ITV4,itv4.itv.com,10072,itv4.jpg
-118,ITV4+1,plus-1.itv4.itv.com,10015,itv4_plus1.jpg
+118,ITV4+1,plus-1.itv4.itv.com,10073,itv4_plus1.jpg
 119,ITVBe,be.itv.com,10075,itv_uk_be.png
 120,ITV,london.itv1.itv.com,10060,itv_uk.jpg
 121,Channel 4 +1,plus-1.channel4.com,8311,channel4_plus1.jpg
@@ -85,7 +85,7 @@ channum,callsign,xmltvid,serviceid,icon
 503,B4U Music,,52135,b4u_music_in.jpg
 504,Starz TV,,53335,starz.jpg
 505,Vintage TV,,52180,vintage_tv.jpg
-506,Heart TV,,55111,heart_tv_uk.jpg
+506,Heart Xmas,,55111,heart_tv_uk.jpg
 507,CAPITAL TV,,55112,capital_tv_uk.jpg
 508,KISS,totalkiss.com,12010,kiss_uk.jpg
 509,The Box,thebox.co.uk,12005,the_box_uk.jpg
