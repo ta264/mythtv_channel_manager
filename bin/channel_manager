@@ -261,10 +261,9 @@ foreach my $line (@conf_chans_file) {
     if ($downloadicons eq 1) {
 
 	my $icon_dl = $url . substr($icon, 0, 1) x 2 . "/" . $icon;
-	my $ff = File::Fetch->new(uri => $icon_dl);
-	my $where = $ff->fetch( to => './output/icons' );
-
-	print "Downloaded $icon_dl\n";
+	my $command = "wget $icon_dl --referer=https://www.lyngsat-logo.com/tvcountry/uk_16.html --directory-prefix output/icons/ -nc -q";
+	my $return_code = system($command);
+	print "Failed: $icon_dl\n" if $return_code;
 
     }
 
