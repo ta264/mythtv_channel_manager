@@ -76,7 +76,7 @@ channum,callsign,xmltvid,serviceid,icon
 606,POP+1,3033638,53370,pop_uk.png
 607,CBBC,29324,10352,cbbc.png
 608,CBeebies,29325,6338,bbc_cbeebies_uk.png
-609,POP MAX,,53345,tiny_pop.png
+609,Tiny Pop+1,,53345,tiny_pop.png
 651,Community,24677,4753,community_channel.png
 652,Forces TV,87987,6033,forces_tv_uk.png
 661,Rishtey,77777,52103,rishtey_uk.png
@@ -86,7 +86,7 @@ channum,callsign,xmltvid,serviceid,icon
 694,GOD Channel,26215,52126,godchannel.png
 696,TBN UK,97332,52124,tbn_europe.png
 800,QVC,21810,6600,qvc.png
-814,QVC Xmas,,6601,qvc_extra_uk.png
+814,QVC Christmas,,6601,qvc_extra_uk.png
 815,TJC Choice,,52070,the_jewellery_channel_uk_choice.png
 816,QVC Beauty,29693,6603,qvc_beauty_uk.png
 818,QVC Style,98903,6602,qvc_uk.png
