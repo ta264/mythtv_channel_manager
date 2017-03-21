@@ -40,7 +40,7 @@ channum,callsign,xmltvid,serviceid,icon
 147,Pick+1,66716,5107,pick_tv.png
 148,Challenge,21793,6032,challenge_tv.png
 149,Challenge+1,45283,6026,challenge_tv.png
-153,True Ent +1,,53380,true_drama_uk.png
+153,True Ent +1,89657,53380,true_drama_uk.png
 155,Travel Ch +1,32286,52100,travelchannel.png
 157,ITVBe+1,90645,10139,itv_uk_be.png
 158,Drama,82575,6522,drama_uktv.png
@@ -53,7 +53,7 @@ channum,callsign,xmltvid,serviceid,icon
 208,Bloomberg HD,20711,55392,bloomberg.png
 211,CGTN,29114,54216,cctv_news_english.png
 212,BBC NEWS,19037,10358,bbc_news.png
-250,FrontRunner,,52006,front_runner_tv_uk.png
+250,FrontRunner,35571,52006,front_runner_tv_uk.png
 251,Bike,97856,52290,bike_channel_uk.png
 302,True Movies,44717,53320,true_movies.png
 303,True Movies+1,50011,53325,true_movies2.png
