@@ -71,7 +71,7 @@ channum,callsign,xmltvid,serviceid,icon
 212,BBC NEWS,19037,10358,bbc_news.png
 213,CHSTV,45926,50300,channel_s.png
 214,Arirang TV HD,28452,53150,arirang_kr.png
-250,FrontRunner,35571,52006,front_runner_tv_uk.png
+250,FrontRunner,35571,50305,front_runner_tv_uk.png
 251,Bike,97856,52290,bike_channel_uk.png
 300,Film4,21494,9220,film_4_uk.png
 301,Film4 +1,25630,9225,film_4_uk_plus1.png
@@ -103,7 +103,6 @@ channum,callsign,xmltvid,serviceid,icon
 609,Tiny Pop +1,56423,53345,tiny_pop.png
 630,Rishtey,77777,52103,rishtey_uk.png
 631,COLORS HD,55671,55400,colors_in.png
-663,Zing,3033638,6001,zee_zing_uk.png
 690,Inspiration TV,46219,50390,inspiration_tv_us.png
 691,DAYSTAR HD,32285,55410,daystar_tv_network.png
 692,revelation,32561,52127,revelation_tv.png
