@@ -46,16 +46,18 @@ channum,callsign,xmltvid,serviceid,icon
 149,Food Netwrk+1,55670,52510,food_network_uk.png
 150,Travel Channel,17453,54102,travelchannel.png
 151,Travel Ch +1,32286,52100,travelchannel.png
-153,True Ent +1,89657,53380,true_drama_uk.png
-154,tru TV,97331,53305,tru_tv_uk.png
-156,PBS America,73510,52505,pbs_america.png
-157,YourTV,97674,52540,your_tv_uk.png
+152,True Ent +1,89657,53380,true_drama_uk.png
+153,tru TV,97331,53305,tru_tv_uk.png
+155,PBS America,73510,52505,pbs_america.png
+156,YourTV,97674,52540,your_tv_uk.png
+157,Dave,24305,6506,dave_uktv.png
 158,Drama,82575,6522,drama_uktv.png
 159,YESTERDAY,31783,6505,yesterday_uktv.png
 160,Really,45828,6523,really_uktv.png
 162,BLAZE,101972,50350,blaze_uk.png
 164,Community,24677,4753,community_channel.png
 165,Forces TV,87987,6033,forces_tv_uk.png
+166,Home,21257,6501,home_uktv.png
 167,QUEST,62391,52525,quest_us.png
 169,Quest Red,,52550,quest_us_red.png
 200,BBC NEWS HD,83285,8921,bbc_news_hd.png
