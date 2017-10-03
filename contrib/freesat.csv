@@ -75,12 +75,12 @@ channum,callsign,xmltvid,serviceid,icon
 212,BBC NEWS,19037,10358,bbc_news.png
 213,CHSTV,45926,50300,channel_s.png
 214,Arirang TV HD,28452,53150,arirang_kr.png
-250,FrontRunner,35571,50305,front_runner_tv_uk.png
+250,FrontRunner,35571,52006,front_runner_tv_uk.png
 251,Bike,97856,52290,bike_channel_uk.png
 300,Film4,21494,9220,film_4_uk.png
 301,Film4 +1,25630,9225,film_4_uk_plus1.png
-302,True Movies,44717,53320,true_movies.png
-303,True Movies+1,50011,53325,true_movies2.png
+302,True Christmas,44717,53320,true_movies.png
+303,TrueChrstms+1,50011,53325,true_movies2.png
 304,movies4men,46306,51116,movies_4_men.png
 305,mov4men+1,59406,51118,movies_4_men.png
 306,TalkingPictures,99024,22606,talking_pictures_tv_uk.png
@@ -97,14 +97,12 @@ channum,callsign,xmltvid,serviceid,icon
 601,CBeebies HD,83283,8932,bbc_cbeebies_uk_hd.png
 602,CITV,49452,10071,citv.png
 603,POP,33638,53340,pop_uk.png
-604,Kix,56896,53350,kix_uk.png
+604,POP Max,56896,53350,kix_uk.png
 605,Tiny Pop,34087,53330,tiny_pop.png
 606,POP+1,3033638,53370,pop_uk.png
 607,CBBC,29324,10352,cbbc.png
 608,CBeebies,29325,6338,bbc_cbeebies_uk.png
 609,Tiny Pop +1,56423,53345,tiny_pop.png
-630,Rishtey,77777,52103,rishtey_uk.png
-631,COLORS HD,55671,55400,colors_in.png
 690,Inspiration TV,46219,50390,inspiration_tv_us.png
 691,DAYSTAR HD,32285,55410,daystar_tv_network.png
 692,revelation,32561,52127,revelation_tv.png
