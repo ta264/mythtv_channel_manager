@@ -1,0 +1,1 @@
+select distinct CASE WHEN mod_sys = "DVB-S" THEN "S1" ELSE "S2" END, frequency, UPPER(polarity), symbolrate, fec, rolloff * 100, UPPER(modulation) from dtv_multiplex a join channel b on a.mplexid = b.mplexid order by frequency INTO OUTFILE '/var/lib/mysql-files/Astra' FIELDS TERMINATED BY ' ';
