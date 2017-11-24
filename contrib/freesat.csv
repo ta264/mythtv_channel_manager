@@ -45,7 +45,7 @@ channum,callsign,xmltvid,serviceid,icon
 148,Food Network,44718,52500,food_network_uk.png
 149,Food Netwrk+1,55670,52510,food_network_uk.png
 150,Travel Channel,17453,54102,travelchannel.png
-151,Travel Ch +1,32286,52100,travelchannel.png
+151,Travel Ch +1,32286,53505,travelchannel.png
 152,True Ent +1,89657,53380,true_drama_uk.png
 153,tru TV,97331,53305,tru_tv_uk.png
 155,PBS America,73510,52505,pbs_america.png
@@ -87,7 +87,7 @@ channum,callsign,xmltvid,serviceid,icon
 501,The Vault,32675,53355,the_vault.png
 502,Chartshow Hits,31572,53315,dance_nation.png
 504,Starz TV,45514,53335,starz.png
-505,Vintage TV,68877,52180,vintage_tv.png
+505,Vintage TV,68877,53515,vintage_tv.png
 508,Kiss,25151,52194,kiss_uk.png
 509,4Music,31786,9240,channel_4_music.png
 510,Magic,25607,52195,magic_tv_uk.png
@@ -103,7 +103,7 @@ channum,callsign,xmltvid,serviceid,icon
 608,CBeebies,29325,6338,bbc_cbeebies_uk.png
 609,Tiny Pop +1,56423,53345,tiny_pop.png
 690,Inspiration TV,46219,50390,inspiration_tv_us.png
-691,DAYSTAR HD,105267,55410,daystar_tv_network.png
+691,DAYSTAR HD,105267,55305,daystar_tv_network.png
 692,revelation,32561,52127,revelation_tv.png
 694,GOD Channel,26215,52126,godchannel.png
 695,SonLife,42745,53560,sonlife_broadcasting_network_international.png
